@@ -316,6 +316,11 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  user-select: none;
+}
+
+.hw-card * {
+  pointer-events: none;
 }
 
 .hw-card:hover {

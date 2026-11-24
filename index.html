@@ -92,7 +92,7 @@
 
         <!-- Pre-rendered Grid with 5 countries -->
         <div class="hardware-grid" id="countriesGrid">
-          <div class="hw-card selected" data-country="france">
+          <div class="hw-card selected" data-country="france" onclick="window.selectCountry('france')">
             <div>
               <div class="hw-card-top">
                 <span class="hw-flag">🇫🇷</span>
@@ -110,7 +110,7 @@
             </div>
           </div>
 
-          <div class="hw-card" data-country="russia">
+          <div class="hw-card" data-country="russia" onclick="window.selectCountry('russia')">
             <div>
               <div class="hw-card-top">
                 <span class="hw-flag">🇷🇺</span>
@@ -128,7 +128,7 @@
             </div>
           </div>
 
-          <div class="hw-card" data-country="finland">
+          <div class="hw-card" data-country="finland" onclick="window.selectCountry('finland')">
             <div>
               <div class="hw-card-top">
                 <span class="hw-flag">🇫🇮</span>
@@ -146,7 +146,7 @@
             </div>
           </div>
 
-          <div class="hw-card" data-country="poland">
+          <div class="hw-card" data-country="poland" onclick="window.selectCountry('poland')">
             <div>
               <div class="hw-card-top">
                 <span class="hw-flag">🇵🇱</span>
@@ -164,7 +164,7 @@
             </div>
           </div>
 
-          <div class="hw-card" data-country="azerbaijan">
+          <div class="hw-card" data-country="azerbaijan" onclick="window.selectCountry('azerbaijan')">
             <div>
               <div class="hw-card-top">
                 <span class="hw-flag">🇦🇿</span>
@@ -219,7 +219,7 @@
                 <div class="spec-line"><span>ЭНЕРГОАВТОНОМИЯ:</span> <strong>92%</strong></div>
               </div>
 
-              <button class="btn-apply-reveal" id="btnConfirmCountry">ВЫБРАТЬ И ПЕРЕЙТИ К ИДЕОЛОГИИ ➔</button>
+              <button class="btn-apply-reveal" id="btnConfirmCountry" onclick="window.confirmCountry()">ВЫБРАТЬ И ПЕРЕЙТИ К ИДЕОЛОГИИ ➔</button>
             </div>
           </div>
         </div>
@@ -775,7 +775,7 @@ class GameState {
             <div class="spec-line"><span>ЭНЕРГОАВТОНОМИЯ:</span> <strong>${country.stats.energy}%</strong></div>
           </div>
 
-          <button class="btn-apply-reveal" id="btnConfirmCountry">ВЫБРАТЬ И ПЕРЕЙТИ К ИДЕОЛОГИИ ➔</button>
+          <button class="btn-apply-reveal" id="btnConfirmCountry" onclick="window.confirmCountry()">ВЫБРАТЬ И ПЕРЕЙТИ К ИДЕОЛОГИИ ➔</button>
         </div>
       </div>
     `;
@@ -1504,6 +1504,23 @@ class GameState {
 // Immediate execution
 const game = new GameState();
 window.currentGame = game;
+
+window.selectCountry = function(key) {
+  if (!COUNTRIES_DATA[key]) return;
+  game.selectedCountryId = key;
+  document.querySelectorAll('#countriesGrid .hw-card').forEach(c => {
+    if (c.getAttribute('data-country') === key) {
+      c.classList.add('selected');
+    } else {
+      c.classList.remove('selected');
+    }
+  });
+  game.renderCountryPreview(COUNTRIES_DATA[key]);
+};
+
+window.confirmCountry = function() {
+  game.goToWizardStep2();
+};
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => game.init());
