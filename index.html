@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ГЕОПОЛИТИКА: Искусство Государства</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header / Top Bar -->
+    <header class="game-header" id="gameHeader" style="display:none;">
+      <div class="header-left">
+        <span class="country-flag" id="playerFlag">🏳️</span>
+        <div>
+          <h2 class="country-name" id="playerCountryName">Страна</h2>
+          <span class="regime-badge" id="playerRegime">Парламентская республика</span>
+        </div>
+      </div>
+      
+      <div class="header-center">
+        <div class="turn-box">
+          <span class="turn-label">Сезон & Год</span>
+          <span class="turn-value" id="currentTurnDisplay">Весна, 2026</span>
+        </div>
+        <button class="btn btn-turn" id="btnNextTurn" title="Завершить текущий квартал и перейти к следующим событиям">
+          Следующий ход ➔
+        </button>
+      </div>
+
+      <div class="header-right">
+        <button class="btn btn-sm btn-ghost" id="btnSoundToggle" title="Звуки">🔔</button>
+        <button class="btn btn-sm btn-ghost" id="btnSaveGame" title="Сохранить">💾</button>
+        <button class="btn btn-sm btn-ghost" id="btnRestart" title="Новая игра">🔄</button>
+      </div>
+    </header>
+
+    <!-- Top Resources Bar -->
+    <nav class="resource-bar" id="resourceBar" style="display:none;">
+      <div class="res-item" title="Казна (миллиарды $)">
+        <span class="res-icon">💰</span>
+        <span class="res-val" id="resTreasury">$0B</span>
+      </div>
+      <div class="res-item" title="Военная мощь (Дивизии, техника, флот)">
+        <span class="res-icon">⚔️</span>
+        <span class="res-val" id="resMilitary">0</span>
+      </div>
+      <div class="res-item" title="Одобрение народа (%)">
+        <span class="res-icon">👥</span>
+        <span class="res-val" id="resStability">50%</span>
+      </div>
+      <div class="res-item" title="Дипломатическое влияние и репутация">
+        <span class="res-icon">🕊️</span>
+        <span class="res-val" id="resInfluence">50</span>
+      </div>
+      <div class="res-item" title="Энергетический баланс / Ресурсы">
+        <span class="res-icon">⚡</span>
+        <span class="res-val" id="resEnergy">100%</span>
+      </div>
+    </nav>
+
+    <!-- Main Screens Container -->
+    <main class="main-content">
+      <!-- 1. Screen: Country Selection -->
+      <section class="screen active" id="screenSelection">
+        <div class="hero-intro">
+          <div class="seal">⚔️ ⚜️ 🦅</div>
+          <h1 class="main-title">ВЕЛИКАЯ СТРАТЕГИЯ</h1>
+          <p class="subtitle">Управление государством в эпоху геополитических трансформаций</p>
+          <div class="ornament">❖ ─────── ✦ ─────── ❖</div>
+          <p class="tagline">5 держав. Реальные дилеммы, экономика, союзы, разведка, интриги, переговоры и тотальная свобода воли.</p>
+        </div>
+
+        <div class="countries-grid" id="countriesGrid">
+          <!-- Dynamically populated -->
+        </div>
+
+        <div class="country-preview" id="countryPreview">
+          <div class="preview-placeholder">Выберите державу для детального изучения геополитического досье</div>
+        </div>
+      </section>
+
+      <!-- 2. Screen: Main Game Dashboard -->
+      <section class="screen" id="screenGame">
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+          <button class="tab-btn active" data-tab="tabOverview">🏛️ Обзор & Совет</button>
+          <button class="tab-btn" data-tab="tabDiplomacy">🤝 Дипломатия & Послы</button>
+          <button class="tab-btn" data-tab="tabEconomy">📈 Экономика & Ресурсы</button>
+          <button class="tab-btn" data-tab="tabMilitary">🛡️ Война & Оборона</button>
+          <button class="tab-btn" data-tab="tabPolicies">📜 Стиль & Указы</button>
+          <button class="tab-btn" data-tab="tabLog">📜 Хроника событий</button>
+        </div>
+
+        <!-- Tab 1: Overview & Council -->
+        <div class="tab-pane active" id="tabOverview">
+          <div class="two-col-layout">
+            <div class="col-card">
+              <h3 class="card-title">Досье главы государства</h3>
+              <div class="briefing-box" id="leaderBriefing"></div>
+              
+              <h4 class="subhead">Текущие национальные фокусы</h4>
+              <div class="focus-list" id="focusList"></div>
+            </div>
+
+            <div class="col-card">
+              <h3 class="card-title">Срочные геополитические депеши</h3>
+              <div class="crisis-box" id="activeCrises">
+                <div class="empty-state">Нет острых неразрешенных кризисов. Обстановка в регионе стабильная.</div>
+              </div>
+
+              <h4 class="subhead">Тайные донесения советников</h4>
+              <div class="advisors-grid" id="advisorsList"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Diplomacy & Dialogues -->
+        <div class="tab-pane" id="tabDiplomacy">
+          <div class="diplomacy-layout">
+            <div class="country-list-pane">
+              <h3>Мировые державы</h3>
+              <div class="diplo-cards" id="diploCards"></div>
+            </div>
+
+            <div class="diplo-dialogue-pane" id="diploDialoguePane">
+              <div class="empty-dialogue">Выберите страну слева для переговоров, заключения договоров или выдвижения ультиматума.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Economy -->
+        <div class="tab-pane" id="tabEconomy">
+          <div class="economy-grid">
+            <div class="col-card">
+              <h3 class="card-title">Налогово-бюджетная система</h3>
+              <div class="policy-control">
+                <label>Подоходный налог: <span id="taxRateVal">20%</span></label>
+                <input type="range" id="taxSlider" min="5" max="55" value="20" step="1">
+                <p class="hint">Высокие налоги наполняют бюджет, но подрывают лояльность бизнеса и народа.</p>
+              </div>
+              <div class="policy-control">
+                <label>Расходы на социальное обеспечение & Медицину: <span id="welfareRateVal">Средние</span></label>
+                <div class="btn-group" id="welfareGroup">
+                  <button class="btn btn-sm" data-val="low">Низкие (-15% содерж.)</button>
+                  <button class="btn btn-sm btn-active" data-val="mid">Сбалансированные</button>
+                  <button class="btn btn-sm" data-val="high">Щедрые (+20% счастье)</button>
+                </div>
+              </div>
+              <div class="policy-control">
+                <label>Государственные инвестиции в науку и ВПК: <span id="rdRateVal">10% бюджета</span></label>
+                <input type="range" id="rdSlider" min="0" max="30" value="10" step="5">
+              </div>
+            </div>
+
+            <div class="col-card">
+              <h3 class="card-title">Экономические мегапроекты</h3>
+              <div class="projects-list" id="ecoProjectsList"></div>
+            </div>
+
+            <div class="col-card full-width">
+              <h3 class="card-title">Торговые пути и санкционные режимы</h3>
+              <div class="trade-matrix" id="tradeMatrix"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Military & Defense -->
+        <div class="tab-pane" id="tabMilitary">
+          <div class="military-layout">
+            <div class="col-card">
+              <h3 class="card-title">Вооруженные Силы</h3>
+              <div class="mil-stat-list" id="milStats"></div>
+              
+              <div class="mil-actions">
+                <h4>Комплектование и учения</h4>
+                <div class="btn-cluster">
+                  <button class="btn btn-action" id="btnMobilize">Мобилизация резервов ($5B)</button>
+                  <button class="btn btn-action" id="btnDrills">Крупные маневры на границе ($3B)</button>
+                  <button class="btn btn-action" id="btnModernize">Модернизация высокоточного оружия ($8B)</button>
+                  <button class="btn btn-action btn-danger" id="btnNuclearAlert" style="display:none;">Ядерный статус: Повышенная готовность</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-card">
+              <h3 class="card-title">Военные доктрины и альянсы</h3>
+              <div class="doctrines-list" id="doctrinesList"></div>
+
+              <h4 class="subhead">Текущие конфликты и горячие точки</h4>
+              <div class="conflicts-list" id="conflictsList">
+                <p class="empty-state">В настоящее время ваша страна находится в состоянии формального мира.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 5: Policies & Regime Style -->
+        <div class="tab-pane" id="tabPolicies">
+          <div class="two-col-layout">
+            <div class="col-card">
+              <h3 class="card-title">Стиль государственного правления</h3>
+              <p class="card-sub">Вы вольны править как либеральный реформатор, просвещенный монарх, технократ или авторитарный вождь.</p>
+              <div class="regime-selector" id="regimeSelector"></div>
+            </div>
+
+            <div class="col-card">
+              <h3 class="card-title">Государственные указы и реформы</h3>
+              <div class="decrees-list" id="decreesList"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 6: Chronicle / Event Log -->
+        <div class="tab-pane" id="tabLog">
+          <div class="col-card">
+            <h3 class="card-title">Историческая хроника правления</h3>
+            <div class="chronicle-feed" id="chronicleFeed"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal Dialog for Dilemmas & Critical Events -->
+    <div class="modal-overlay" id="eventModal" style="display:none;">
+      <div class="modal-dialog">
+        <div class="modal-seal" id="modalCategoryIcon">📜</div>
+        <h2 class="modal-title" id="modalTitle">Событие</h2>
+        <div class="modal-date" id="modalDate">Весна 2026</div>
+        <div class="modal-body" id="modalText">Описание исторической дилеммы...</div>
+        <div class="modal-options" id="modalOptions">
+          <!-- Action buttons with consequences -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast-container" id="toastContainer"></div>
+  </div>
+
+  <script src="countries.js"></script>
+  <script src="events.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
