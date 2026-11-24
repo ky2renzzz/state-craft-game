@@ -1,22 +1,29 @@
 /**
- * StateCraft Core Game Engine — Opal Electronics Design System Edition
+ * StateCraft Core Game Engine — Step-by-Step Wizard & City Governance
  */
 class GameState {
   constructor() {
     this.year = 2026;
     this.seasonIndex = 0;
     this.seasons = ["ВЕСНА", "ЛЕТО", "ОСЕНЬ", "ЗИМА"];
+    
+    // Wizard State
     this.selectedCountryId = null;
+    this.selectedIdeology = null;
+    this.selectedTargetAlly = null;
+
     this.player = null;
     this.otherCountries = {};
     this.activeDiploPartner = null;
     this.logs = [];
+
     this.regimeTypes = [
       { id: "liberal", name: "Либеральная демократия", desc: "+15% к иностранным инвестициям, -5% к скорости военных решений" },
-      { id: "social_state", name: "Социальное правовое государство", desc: "+20% к счастью граждан, повышенные расходы на пособия" },
+      { id: "social_state", name: "Социальное правовое государство", desc: "+20% к счастью граждан, повышенные расходы на субсидии" },
       { id: "technocracy", name: "Технократическая элита", desc: "+25% к эффекту от науки и ИИ, умеренное одобрение народа" },
       { id: "sovereign_statism", name: "Суверенный авторитаризм", desc: "+20% к контролю безопасности и стабильности, санкционные риски" }
     ];
+
     this.decrees = [
       { id: "free_economic_zones", name: "Создание безналоговых технопарков и ОЭЗ", cost: 12, passed: false, desc: "Привлекает глобальный капитал, ускоряет рост ВВП" },
       { id: "media_sovereignty", name: "Закон о защите национального инфопространства", cost: 6, passed: false, desc: "Снижает влияние иностранной пропаганды, Стабильность +10%" },
@@ -26,9 +33,264 @@ class GameState {
   }
 
   init() {
-    this.renderCountrySelection();
+    this.renderWizardStep1();
+    this.bindWizardEvents();
     this.bindGlobalEvents();
     this.initDotMatrixFooter();
+  }
+
+  /* ----------------------------------------------------
+     WIZARD STEP 1: SELECT COUNTRY
+     ---------------------------------------------------- */
+  renderWizardStep1() {
+    const grid = document.getElementById('countriesGrid');
+    grid.innerHTML = '';
+
+    for (let key in COUNTRIES_DATA) {
+      const c = COUNTRIES_DATA[key];
+      const card = document.createElement('div');
+      card.className = `hw-card ${this.selectedCountryId === key ? 'selected' : ''}`;
+      card.innerHTML = `
+        <div>
+          <div class="hw-card-top">
+            <span class="hw-flag">${c.flag}</span>
+            <span class="instrument-chip">${c.id.toUpperCase()}</span>
+          </div>
+          <div class="hw-country-name">${c.name}</div>
+          <div class="hw-regime">${c.ideologyName}</div>
+          <p class="hw-summary">${c.summary ? c.summary.substring(0, 110) + '...' : ''}</p>
+        </div>
+        <div class="hw-specs">
+          <div>КАЗНА: $${c.stats.treasury}B</div>
+          <div>АРМИЯ: ${c.stats.military}/100</div>
+          <div>ОДОБРЕНИЕ: ${c.stats.stability}%</div>
+          <div>ГОРОДОВ: ${c.cities.length}</div>
+        </div>
+      `;
+
+      card.addEventListener('click', () => {
+        this.selectedCountryId = key;
+        document.querySelectorAll('.hw-card').forEach(el => el.classList.remove('selected'));
+        card.classList.add('selected');
+        this.renderCountryPreview(c);
+      });
+
+      grid.appendChild(card);
+    }
+  }
+
+  renderCountryPreview(country) {
+    const preview = document.getElementById('countryPreview');
+    preview.innerHTML = `
+      <div class="corner-screw tl"></div>
+      <div class="corner-screw tr"></div>
+      <div class="corner-screw bl"></div>
+      <div class="corner-screw br"></div>
+
+      <div class="dossier-header">
+        <div>
+          <h2>${country.flag} ${country.fullName}</h2>
+          <div style="font-family:var(--font-mono); font-size:12px; color:var(--signal-yellow); margin-bottom:12px;">«${country.motto}»</div>
+          <div class="chip-group">
+            ${country.traits.map(t => `<span class="instrument-chip">${t}</span>`).join('')}
+          </div>
+        </div>
+        <div style="text-align: right; font-family:var(--font-mono); font-size:12px; color:var(--listing-gray);">
+          СТОЛИЦА: <strong style="color:#fff;">${country.capital}</strong><br>
+          СТАТУС: <strong style="color:var(--signal-yellow);">${country.ideologyName}</strong>
+        </div>
+      </div>
+
+      <div class="dossier-body">
+        <div class="dossier-text">
+          <div class="panel-title">ГЕОПОЛИТИЧЕСКИЙ АНАЛИЗ</div>
+          <p>${country.history || 'Крупная держава со своей геополитической зоной интересов.'}</p>
+          <p style="font-size:13px; color:var(--listing-gray);">Ключевые субъекты управления: ${country.cities.map(ct => ct.name).join(', ')}.</p>
+        </div>
+
+        <div class="dossier-specs-box">
+          <div>
+            <div class="panel-title">СПЕЦИФИКАЦИЯ ДЕРЖАВЫ</div>
+            <div class="spec-line"><span>ГОСРЕЗЕРВЫ:</span> <strong>$${country.stats.treasury} млрд</strong></div>
+            <div class="spec-line"><span>ОБОРОННЫЙ КОНТУР:</span> <strong>${country.stats.military} / 100</strong></div>
+            <div class="spec-line"><span>ОДОБРЕНИЕ ГРАЖДАН:</span> <strong>${country.stats.stability}%</strong></div>
+            <div class="spec-line"><span>ГЛОБАЛЬНЫЙ ВЕС:</span> <strong>${country.stats.influence} / 100</strong></div>
+            <div class="spec-line"><span>ЭНЕРГОАВТОНОМИЯ:</span> <strong>${country.stats.energy}%</strong></div>
+          </div>
+
+          <button class="btn-apply-reveal" id="btnConfirmCountry">ВЫБРАТЬ И ПЕРЕЙТИ К ИДЕОЛОГИИ ➔</button>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('btnConfirmCountry').addEventListener('click', () => {
+      this.goToWizardStep2();
+    });
+  }
+
+  /* ----------------------------------------------------
+     WIZARD STEP 2: IDEOLOGY SELECTION
+     ---------------------------------------------------- */
+  goToWizardStep2() {
+    if (!this.selectedCountryId) return;
+    const country = COUNTRIES_DATA[this.selectedCountryId];
+    this.selectedIdeology = country.defaultIdeology || "social_state";
+
+    document.getElementById('wzChosenCountry').innerText = country.name.toUpperCase();
+    document.getElementById('wizardStep1').classList.remove('active');
+    document.getElementById('wizardStep2').classList.add('active');
+
+    this.renderWizardStep2Options(country);
+  }
+
+  renderWizardStep2Options(country) {
+    const container = document.getElementById('wizardIdeologyOptions');
+    container.innerHTML = '';
+
+    this.regimeTypes.forEach(r => {
+      const isDefault = (r.id === country.defaultIdeology);
+      const isSelected = (r.id === this.selectedIdeology);
+
+      const card = document.createElement('div');
+      card.className = `ideology-card ${isSelected ? 'selected' : ''}`;
+      card.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <h4 style="font-size:16px; font-weight:700; color:var(--white-sheet);">${r.name}</h4>
+          ${isDefault ? '<span class="instrument-chip">ИСТОРИЧЕСКАЯ</span>' : ''}
+        </div>
+        <p style="font-size:13px; color:var(--release-gray); line-height:1.5;">${r.desc}</p>
+      `;
+
+      card.addEventListener('click', () => {
+        this.selectedIdeology = r.id;
+        document.querySelectorAll('.ideology-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+      });
+
+      container.appendChild(card);
+    });
+  }
+
+  /* ----------------------------------------------------
+     WIZARD STEP 3: SELECT TARGET ALLY
+     ---------------------------------------------------- */
+  goToWizardStep3() {
+    const country = COUNTRIES_DATA[this.selectedCountryId];
+    const regime = this.regimeTypes.find(r => r.id === this.selectedIdeology);
+
+    document.getElementById('wzChosenCountry2').innerText = country.name.toUpperCase();
+    document.getElementById('wzChosenIdeology').innerText = regime ? regime.name.toUpperCase() : '';
+
+    document.getElementById('wizardStep2').classList.remove('active');
+    document.getElementById('wizardStep3').classList.add('active');
+
+    this.renderWizardStep3Options(country);
+  }
+
+  renderWizardStep3Options(country) {
+    const container = document.getElementById('wizardAlliesOptions');
+    container.innerHTML = '';
+
+    // Default neutral option
+    const neutralCard = document.createElement('div');
+    neutralCard.className = `ally-card ${this.selectedTargetAlly === 'neutral' || !this.selectedTargetAlly ? 'selected' : ''}`;
+    neutralCard.innerHTML = `
+      <div style="font-size:2rem; margin-bottom:6px;">⚖️</div>
+      <h4 style="font-size:16px; font-weight:700; color:var(--white-sheet); margin-bottom:6px;">Оставить исторический нейтралитет</h4>
+      <p style="font-size:13px; color:var(--release-gray);">Сохранить стартовый внешнеполитический баланс без резких односторонних перекосов.</p>
+    `;
+    neutralCard.addEventListener('click', () => {
+      this.selectedTargetAlly = 'neutral';
+      document.querySelectorAll('.ally-card').forEach(c => c.classList.remove('selected'));
+      neutralCard.classList.add('selected');
+    });
+    container.appendChild(neutralCard);
+
+    // Other countries
+    for (let k in COUNTRIES_DATA) {
+      if (k === this.selectedCountryId) continue;
+      const other = COUNTRIES_DATA[k];
+      const card = document.createElement('div');
+      card.className = `ally-card ${this.selectedTargetAlly === k ? 'selected' : ''}`;
+      card.innerHTML = `
+        <div style="font-size:2rem; margin-bottom:6px;">${other.flag}</div>
+        <h4 style="font-size:16px; font-weight:700; color:var(--white-sheet); margin-bottom:6px;">${other.name}</h4>
+        <p style="font-size:13px; color:var(--release-gray); line-height:1.4;">
+          Приоритетный вектор сближения: +25 к стартовым отношениям, совместные экономические преференции.
+        </p>
+      `;
+      card.addEventListener('click', () => {
+        this.selectedTargetAlly = k;
+        document.querySelectorAll('.ally-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+      });
+      container.appendChild(card);
+    }
+  }
+
+  /* ----------------------------------------------------
+     START GAMEPLAY
+     ---------------------------------------------------- */
+  startGamePlay() {
+    this.player = JSON.parse(JSON.stringify(COUNTRIES_DATA[this.selectedCountryId]));
+    
+    // Apply ideology
+    const regimeObj = this.regimeTypes.find(r => r.id === this.selectedIdeology);
+    if (regimeObj) {
+      this.player.regime = regimeObj.name;
+      this.player.regimeStyle = regimeObj.id;
+    }
+
+    // Apply allies
+    this.otherCountries = {};
+    for (let k in COUNTRIES_DATA) {
+      if (k !== this.selectedCountryId) {
+        this.otherCountries[k] = JSON.parse(JSON.stringify(COUNTRIES_DATA[k]));
+      }
+    }
+
+    if (this.selectedTargetAlly && this.selectedTargetAlly !== 'neutral') {
+      if (this.player.relations[this.selectedTargetAlly] !== undefined) {
+        this.player.relations[this.selectedTargetAlly] = Math.min(100, this.player.relations[this.selectedTargetAlly] + 25);
+      }
+    }
+
+    // Hide wizard, show game
+    document.getElementById('wizardStep3').classList.remove('active');
+    document.getElementById('screenGame').classList.add('active');
+    document.getElementById('headerMeta').style.display = 'flex';
+    document.getElementById('instrumentBar').style.display = 'grid';
+
+    this.log(`ТЕРМИНАЛ: Вступление в должность главы ${this.player.name}. Идеология: ${this.player.regime}.`);
+    this.toast(`ДОБРО ПОЖАЛОВАТЬ, ВЛАСТИТЕЛЬ ДЕРЖАВЫ ${this.player.name.toUpperCase()}!`);
+
+    this.updateHeaderAndResources();
+    this.renderCitiesTab();
+    this.renderOverviewTab();
+    this.renderDiplomacyTab();
+    this.renderEconomyTab();
+    this.renderMilitaryTab();
+    this.renderPoliciesTab();
+  }
+
+  bindWizardEvents() {
+    document.getElementById('btnWzBackTo1').addEventListener('click', () => {
+      document.getElementById('wizardStep2').classList.remove('active');
+      document.getElementById('wizardStep1').classList.add('active');
+    });
+
+    document.getElementById('btnWzProceedTo3').addEventListener('click', () => {
+      this.goToWizardStep3();
+    });
+
+    document.getElementById('btnWzBackTo2').addEventListener('click', () => {
+      document.getElementById('wizardStep3').classList.remove('active');
+      document.getElementById('wizardStep2').classList.add('active');
+    });
+
+    document.getElementById('btnWzStartGame').addEventListener('click', () => {
+      this.startGamePlay();
+    });
   }
 
   bindGlobalEvents() {
@@ -98,121 +360,10 @@ class GameState {
     });
   }
 
-  renderCountrySelection() {
-    const grid = document.getElementById('countriesGrid');
-    grid.innerHTML = '';
-
-    for (let key in COUNTRIES_DATA) {
-      const c = COUNTRIES_DATA[key];
-      const card = document.createElement('div');
-      card.className = `hw-card ${this.selectedCountryId === key ? 'selected' : ''}`;
-      card.innerHTML = `
-        <div>
-          <div class="hw-card-top">
-            <span class="hw-flag">${c.flag}</span>
-            <span class="instrument-chip">${c.id.toUpperCase()}</span>
-          </div>
-          <div class="hw-country-name">${c.name}</div>
-          <div class="hw-regime">${c.regime}</div>
-          <p class="hw-summary">${c.summary.substring(0, 110)}...</p>
-        </div>
-        <div class="hw-specs">
-          <div>КАЗНА: $${c.stats.treasury}B</div>
-          <div>АРМИЯ: ${c.stats.military}/100</div>
-          <div>ОДОБРЕНИЕ: ${c.stats.stability}%</div>
-          <div>ВЛИЯНИЕ: ${c.stats.influence}/100</div>
-        </div>
-      `;
-
-      card.addEventListener('click', () => {
-        this.selectedCountryId = key;
-        document.querySelectorAll('.hw-card').forEach(el => el.classList.remove('selected'));
-        card.classList.add('selected');
-        this.renderCountryPreview(c);
-      });
-
-      grid.appendChild(card);
-    }
-  }
-
-  renderCountryPreview(country) {
-    const preview = document.getElementById('countryPreview');
-    preview.innerHTML = `
-      <div class="corner-screw tl"></div>
-      <div class="corner-screw tr"></div>
-      <div class="corner-screw bl"></div>
-      <div class="corner-screw br"></div>
-
-      <div class="dossier-header">
-        <div>
-          <h2>${country.flag} ${country.fullName}</h2>
-          <div style="font-family:var(--font-mono); font-size:12px; color:var(--signal-yellow); margin-bottom:12px;">«${country.motto}»</div>
-          <div class="chip-group">
-            ${country.traits.map(t => `<span class="instrument-chip">${t}</span>`).join('')}
-          </div>
-        </div>
-        <div style="text-align: right; font-family:var(--font-mono); font-size:12px; color:var(--listing-gray);">
-          СТОЛИЦА: <strong style="color:#fff;">${country.capital}</strong><br>
-          СТАТУС: <strong style="color:var(--signal-yellow);">${country.leader}</strong>
-        </div>
-      </div>
-
-      <div class="dossier-body">
-        <div class="dossier-text">
-          <div class="panel-title">ГЕОПОЛИТИЧЕСКИЙ АНАЛИЗ</div>
-          <p>${country.history}</p>
-          <p>${country.summary}</p>
-        </div>
-
-        <div class="dossier-specs-box">
-          <div>
-            <div class="panel-title">СПЕЦИФИКАЦИЯ ДЕРЖАВЫ</div>
-            <div class="spec-line"><span>ГОСРЕЗЕРВЫ:</span> <strong>$${country.stats.treasury} млрд</strong></div>
-            <div class="spec-line"><span>ОБОРОННЫЙ КОНТУР:</span> <strong>${country.stats.military} / 100</strong></div>
-            <div class="spec-line"><span>ОДОБРЕНИЕ ГРАЖДАН:</span> <strong>${country.stats.stability}%</strong></div>
-            <div class="spec-line"><span>ГЛОБАЛЬНЫЙ ВЕС:</span> <strong>${country.stats.influence} / 100</strong></div>
-            <div class="spec-line"><span>ЭНЕРГОАВТОНОМИЯ:</span> <strong>${country.stats.energy}%</strong></div>
-          </div>
-
-          <button class="btn-apply-reveal" id="btnConfirmCountry">ИНИЦИАЛИЗИРОВАТЬ УПРАВЛЕНИЕ ➔</button>
-        </div>
-      </div>
-    `;
-
-    document.getElementById('btnConfirmCountry').addEventListener('click', () => {
-      this.startGame(country.id);
-    });
-  }
-
-  startGame(countryId) {
-    this.player = JSON.parse(JSON.stringify(COUNTRIES_DATA[countryId]));
-    this.otherCountries = {};
-    for (let k in COUNTRIES_DATA) {
-      if (k !== countryId) {
-        this.otherCountries[k] = JSON.parse(JSON.stringify(COUNTRIES_DATA[k]));
-      }
-    }
-
-    document.getElementById('screenSelection').classList.remove('active');
-    document.getElementById('screenGame').classList.add('active');
-    document.getElementById('headerMeta').style.display = 'flex';
-    document.getElementById('instrumentBar').style.display = 'grid';
-
-    this.log(`ТЕРМИНАЛ АКТИВИРОВАН: Вы вступили в должность главы государства ${this.player.name}.`);
-    this.toast(`ДОБРО ПОЖАЛОВАТЬ, ГЛАВА ГОСУДАРСТВА ${this.player.name.toUpperCase()}`);
-
-    this.updateHeaderAndResources();
-    this.renderOverviewTab();
-    this.renderDiplomacyTab();
-    this.renderEconomyTab();
-    this.renderMilitaryTab();
-    this.renderPoliciesTab();
-  }
-
   updateHeaderAndResources() {
     document.getElementById('playerFlag').innerText = this.player.flag;
     document.getElementById('playerCountryName').innerText = this.player.name.toUpperCase();
-    document.getElementById('playerRegime').innerText = this.player.regime.toUpperCase();
+    document.getElementById('playerRegimeDisplay').innerText = this.player.regime.toUpperCase();
     document.getElementById('seasonDisplay').innerText = `${this.seasons[this.seasonIndex]} // ${this.year}`;
 
     document.getElementById('resTreasury').innerText = `$${Math.round(this.player.stats.treasury)}B`;
@@ -229,7 +380,15 @@ class GameState {
       this.year++;
     }
 
-    const taxIncome = Math.round((this.player.stats.taxRate * 0.45) + (this.player.stats.incomeBonus || 0));
+    // Regional economic yield
+    let cityBonus = 0;
+    if (this.player.cities) {
+      this.player.cities.forEach(c => {
+        cityBonus += Math.round(c.gdp * 0.12);
+      });
+    }
+
+    const taxIncome = Math.round((this.player.stats.taxRate * 0.45) + (this.player.stats.incomeBonus || 0) + cityBonus);
     const milExpenses = Math.round(this.player.stats.military * 0.15);
     const netIncome = taxIncome - milExpenses;
     this.player.stats.treasury += netIncome;
@@ -238,9 +397,10 @@ class GameState {
       this.player.stats.stability = Math.max(0, this.player.stats.stability - 2);
     }
 
-    this.log(`ЦИКЛ: ${this.seasons[this.seasonIndex]} ${this.year}. Поступления: +$${taxIncome}B, Расходы ВПК: -$${milExpenses}B (Сальдо: ${netIncome >= 0 ? '+' : ''}$${netIncome}B).`);
+    this.log(`КВАРТАЛ: ${this.seasons[this.seasonIndex]} ${this.year}. Налоги и города: +$${taxIncome}B, Военные расходы: -$${milExpenses}B (Итог: ${netIncome >= 0 ? '+' : ''}$${netIncome}B).`);
     this.updateHeaderAndResources();
 
+    // Trigger Dilemma Event
     const event = HISTORICAL_EVENTS[Math.floor(Math.random() * HISTORICAL_EVENTS.length)];
     this.showEventModal(event);
 
@@ -249,6 +409,7 @@ class GameState {
       this.player.relations[c] = Math.max(0, Math.min(100, this.player.relations[c] + change));
     }
 
+    this.renderCitiesTab();
     this.renderOverviewTab();
     this.renderDiplomacyTab();
     this.renderEconomyTab();
@@ -268,7 +429,7 @@ class GameState {
       btn.className = 'modal-choice-btn';
       btn.innerHTML = `
         <strong>[>] ${opt.text}</strong>
-        <span>ВЛИЯНИЕ: ${opt.impact}</span>
+        <span>ПОСЛЕДСТВИЯ: ${opt.impact}</span>
       `;
       btn.addEventListener('click', () => {
         opt.action(this);
@@ -276,6 +437,7 @@ class GameState {
         this.log(`РЕШЕНИЕ: ${evt.title} -> ${opt.text}`);
         this.toast("ГОСУДАРСТВЕННОЕ РЕШЕНИЕ ПРИВЕДЕНО В ИСПОЛНЕНИЕ");
         this.updateHeaderAndResources();
+        this.renderCitiesTab();
         this.renderOverviewTab();
       });
       optContainer.appendChild(btn);
@@ -284,11 +446,79 @@ class GameState {
     modal.style.display = 'flex';
   }
 
+  /* ----------------------------------------------------
+     TAB: CITIES & REGIONS
+     ---------------------------------------------------- */
+  renderCitiesTab() {
+    const grid = document.getElementById('citiesListGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    this.player.cities.forEach(city => {
+      const card = document.createElement('div');
+      card.className = 'city-card';
+      card.innerHTML = `
+        <div>
+          <div class="city-header">
+            <div>
+              <div class="city-name">${city.name}</div>
+              <div class="city-pop">НАСЕЛЕНИЕ: ${city.population}</div>
+            </div>
+            <span class="instrument-chip">${city.focus}</span>
+          </div>
+          <div class="city-role">${city.role}</div>
+
+          <div class="city-metrics-row">
+            <div>ЛОЯЛЬНОСТЬ: <strong style="color:${city.loyalty >= 70 ? 'var(--accent-green)' : 'var(--signal-yellow)};">${city.loyalty}%</strong></div>
+            <div>ВКЛАД В ВВП: <strong>$${city.gdp}B</strong></div>
+          </div>
+        </div>
+
+        <div class="city-actions-cluster">
+          <button class="btn-city-act" id="btnInvestCity_${city.id}">Инвестиции ($4B)</button>
+          <button class="btn-city-act" id="btnGarrisonCity_${city.id}">Гарнизон ($2B)</button>
+        </div>
+      `;
+
+      grid.appendChild(card);
+
+      document.getElementById(`btnInvestCity_${city.id}`).addEventListener('click', () => {
+        if (this.player.stats.treasury >= 4) {
+          this.player.stats.treasury -= 4;
+          city.gdp += 4;
+          city.loyalty = Math.min(100, city.loyalty + 6);
+          this.toast(`ИНФРАСТРУКТУРА: Инвестиции в ${city.name} повысили ВВП и лояльность!`);
+          this.log(`Реализована программа городского развития для города ${city.name}.`);
+          this.updateHeaderAndResources();
+          this.renderCitiesTab();
+        } else {
+          this.toast("ОТКАЗ: Недостаточно средств в казне");
+        }
+      });
+
+      document.getElementById(`btnGarrisonCity_${city.id}`).addEventListener('click', () => {
+        if (this.player.stats.treasury >= 2) {
+          this.player.stats.treasury -= 2;
+          city.loyalty = Math.min(100, city.loyalty + 4);
+          this.player.stats.military = Math.min(100, this.player.stats.military + 2);
+          this.toast(`БЕЗОПАСНОСТЬ: Гарнизон в ${city.name} усилен.`);
+          this.updateHeaderAndResources();
+          this.renderCitiesTab();
+        } else {
+          this.toast("ОТКАЗ: Недостаточно средств в казне");
+        }
+      });
+    });
+  }
+
+  /* ----------------------------------------------------
+     TAB: OVERVIEW & COUNCIL
+     ---------------------------------------------------- */
   renderOverviewTab() {
     const briefing = document.getElementById('leaderBriefing');
     briefing.innerHTML = `
       <p style="margin-bottom:8px;"><strong>ВАШЕ ПРЕВОСХОДИТЕЛЬСТВО,</strong> системы управления функционируют штатно.</p>
-      <p>Одобрение граждан: ${this.player.stats.stability}%. Коррупция: ${this.player.stats.corruption || 12}%. Базовая ставка налога: ${this.player.stats.taxRate}%.</p>
+      <p>Одобрение граждан: ${this.player.stats.stability}%. Коррупционный фон: ${this.player.stats.corruption || 12}%. Базовая ставка налога: ${this.player.stats.taxRate}%.</p>
     `;
 
     const focuses = document.getElementById('focusList');
@@ -324,6 +554,9 @@ class GameState {
     });
   }
 
+  /* ----------------------------------------------------
+     TAB: DIPLOMACY & DIALOGUES
+     ---------------------------------------------------- */
   renderDiplomacyTab() {
     const list = document.getElementById('diploCards');
     list.innerHTML = '';
@@ -343,7 +576,7 @@ class GameState {
           <strong style="font-size:14px; text-transform:uppercase;">${c.flag} ${c.name}</strong>
           <span style="font-family:var(--font-mono); font-size:11px; color:${relColor}; font-weight:700;">${rel}/100</span>
         </div>
-        <div style="font-family:var(--font-mono); font-size:11px; color:var(--listing-gray);">${c.regime}</div>
+        <div style="font-family:var(--font-mono); font-size:11px; color:var(--listing-gray);">${c.ideologyName || c.regime}</div>
       `;
 
       card.addEventListener('click', () => {
@@ -369,7 +602,7 @@ class GameState {
       <div class="terminal-header">
         <div>
           <strong style="font-size:15px; text-transform:uppercase;">${target.flag} ДИПЛОМАТИЧЕСКАЯ МИССИЯ: ${target.name}</strong>
-          <div style="font-family:var(--font-mono); font-size:11px; color:var(--listing-gray);">${target.leader}</div>
+          <div style="font-family:var(--font-mono); font-size:11px; color:var(--listing-gray);">${target.capital} • ${target.ideologyName || target.regime}</div>
         </div>
         <span class="instrument-chip">ИНДЕКС ДОВЕРИЯ: ${rel}/100</span>
       </div>
@@ -449,7 +682,7 @@ class GameState {
       this.player.stats.stability = Math.max(0, this.player.stats.stability - 5);
       chat.innerHTML += `
         <div class="terminal-bubble you">УЛЬТИМАТУМ: Немедленно прекратить враждебные действия и уступить интересы!</div>
-        <div class="terminal-bubble them" style="border-color:var(--accent-red); color:var(--accent-red);">ДЕПЕРШ ИЗ СТОЛИЦЫ: Это объявление вражды. Дипломатические контакты заморожены!</div>
+        <div class="terminal-bubble them" style="border-color:var(--accent-red); color:var(--accent-red);">ДЕПЕША ИЗ СТОЛИЦЫ: Это объявление вражды. Дипломатические контакты заморожены!</div>
       `;
       this.toast(`РАЗРЫВ: ОТНОШЕНИЯ С ${target.name.toUpperCase()} КРИТИЧЕСКИ УПАЛИ`);
       this.updateHeaderAndResources();
@@ -457,6 +690,9 @@ class GameState {
     });
   }
 
+  /* ----------------------------------------------------
+     TAB: ECONOMY & PROJECTS
+     ---------------------------------------------------- */
   renderEconomyTab() {
     const pList = document.getElementById('ecoProjectsList');
     pList.innerHTML = '';
@@ -512,6 +748,9 @@ class GameState {
     }
   }
 
+  /* ----------------------------------------------------
+     TAB: MILITARY & ARMED FORCES
+     ---------------------------------------------------- */
   renderMilitaryTab() {
     const stats = document.getElementById('milStats');
     stats.innerHTML = `
@@ -552,6 +791,9 @@ class GameState {
     `;
   }
 
+  /* ----------------------------------------------------
+     TAB: POLICIES & DECREES
+     ---------------------------------------------------- */
   renderPoliciesTab() {
     const rSel = document.getElementById('regimeSelector');
     rSel.innerHTML = '';
@@ -651,7 +893,6 @@ class GameState {
     this.toast("СОХРАНЕНО: Данные записаны в локальное хранилище");
   }
 
-  // Interactive Dot-Matrix Wordmark Canvas
   initDotMatrixFooter() {
     const canvas = document.getElementById('dotMatrixCanvas');
     if (!canvas) return;
@@ -681,7 +922,6 @@ class GameState {
     function render() {
       ctx.clearRect(0, 0, width, height);
 
-      // Render dot matrix text for "STATECRAFT"
       for (let x = 0; x < width; x += spacing) {
         for (let y = 0; y < height; y += spacing) {
           const dx = mouse.x - x;
@@ -700,7 +940,7 @@ class GameState {
           ctx.beginPath();
           ctx.arc(x, y, radius, 0, Math.PI * 2);
           if (dist < 120) {
-            ctx.fillStyle = `rgba(255, 219, 1, ${alpha})`; // Signal Yellow glow on hover
+            ctx.fillStyle = `rgba(255, 219, 1, ${alpha})`;
           } else {
             ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
           }
@@ -708,7 +948,6 @@ class GameState {
         }
       }
 
-      // Draw sharp vector wordmark outline in center
       ctx.fillStyle = "rgba(255,255,255,0.04)";
       ctx.font = "700 48px Inter, sans-serif";
       ctx.textAlign = "center";

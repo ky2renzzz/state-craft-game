@@ -7,7 +7,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
 </head>
@@ -15,11 +15,11 @@
   <canvas id="grainCanvas"></canvas>
 
   <div id="app">
-    <!-- Difference Wordmark Header -->
+    <!-- Top Hardware Header -->
     <header class="opal-header">
       <div class="wordmark">
         STATECRAFT
-        <span class="sub">GEOPOLITICAL OS // V26.1</span>
+        <span class="sub">GEOPOLITICAL OS // V26.2</span>
       </div>
 
       <div class="header-meta" id="headerMeta" style="display:none;">
@@ -27,14 +27,14 @@
           <span class="flag-box" id="playerFlag">🏳️</span>
           <div class="country-details">
             <strong id="playerCountryName">COUNTRY</strong>
-            <span id="playerRegime">PARLIAMENTARY</span>
+            <span id="playerRegimeDisplay">PARLIAMENTARY</span>
           </div>
         </div>
 
-        <div class="season-display" id="seasonDisplay">SPRING // 2026</div>
+        <div class="season-display" id="seasonDisplay">ВЕСНА // 2026</div>
 
         <button class="btn-signal-yellow" id="btnNextTurn">
-          NEXT CYCLE ➔
+          СЛЕДУЮЩИЙ КВАРТАЛ ➔
         </button>
       </div>
     </header>
@@ -42,85 +42,165 @@
     <!-- Bolted Instrument Readout Bar -->
     <section class="instrument-bar" id="instrumentBar" style="display:none;">
       <div class="readout-cell">
-        <div class="readout-label">TREASURY RESERVES</div>
+        <div class="readout-label">КАЗНА ГОСУДАРСТВА</div>
         <div class="readout-value" id="resTreasury">$0B</div>
       </div>
       <div class="readout-cell">
-        <div class="readout-label">DEFENSE CAPABILITY</div>
+        <div class="readout-label">ОБОРОНОСПОСОБНОСТЬ</div>
         <div class="readout-value" id="resMilitary">0/100</div>
       </div>
       <div class="readout-cell">
-        <div class="readout-label">POPULAR APPROVAL</div>
+        <div class="readout-label">ОДОБРЕНИЕ НАРОДА</div>
         <div class="readout-value" id="resStability">50%</div>
       </div>
       <div class="readout-cell">
-        <div class="readout-label">GLOBAL INFLUENCE</div>
+        <div class="readout-label">ГЛОБАЛЬНОЕ ВЛИЯНИЕ</div>
         <div class="readout-value" id="resInfluence">50/100</div>
       </div>
       <div class="readout-cell">
-        <div class="readout-label">ENERGY AUTONOMY</div>
+        <div class="readout-label">ЭНЕРГОАВТОНОМИЯ</div>
         <div class="readout-value" id="resEnergy">100%</div>
       </div>
     </section>
 
-    <!-- Main Content Area -->
+    <!-- Main Container -->
     <main class="main-wrapper">
       
-      <!-- Screen 1: Country Selection (The Hardware Manifesto) -->
-      <section class="screen active" id="screenSelection">
-        <div class="manifesto-hero">
-          <div class="sprocket-bar">
-            <div class="sprocket-hole"></div>
-            <div class="sprocket-hole"></div>
-            <div class="sprocket-hole"></div>
-            <div class="sprocket-hole"></div>
-            <div class="sprocket-hole"></div>
-          </div>
-
-          <h1 class="manifesto-title">Искусство Государства</h1>
-          <div class="manifesto-column">
-            Пять суверенных держав. Реальная расстановка сил, закрытые каналы дипломатии, сырьевые рынки, мобилизационные протоколы и абсолютная свобода воли.
-          </div>
-          <div class="manifesto-signal-line">Выберите нацию для инициализации терминала</div>
+      <!-- ==============================================
+           STEP-BY-STEP GAME INITIALIZATION WIZARD
+           ============================================== -->
+      
+      <!-- WIZARD STEP 1: SELECT COUNTRY -->
+      <section class="wizard-step active" id="wizardStep1">
+        <div class="wizard-progress-bar">
+          <div class="step-badge active">01. ВЫБОР ДЕРЖАВЫ</div>
+          <div class="step-divider">────</div>
+          <div class="step-badge">02. ИДЕОЛОГИЯ</div>
+          <div class="step-divider">────</div>
+          <div class="step-badge">03. ВНЕШНИЕ СОЮЗЫ</div>
+          <div class="step-divider">────</div>
+          <div class="step-badge">04. УПРАВЛЕНИЕ</div>
         </div>
 
-        <!-- 5 Countries Hardware Grid -->
+        <div class="manifesto-hero">
+          <div class="sprocket-bar">
+            <div class="sprocket-hole"></div><div class="sprocket-hole"></div><div class="sprocket-hole"></div><div class="sprocket-hole"></div><div class="sprocket-hole"></div>
+          </div>
+          <h1 class="manifesto-title">ВЫБЕРИТЕ ДЕРЖАВУ</h1>
+          <div class="manifesto-column">
+            Пять наций с уникальным геополитическим весом, ресурсами, ВПК и географией. С этого решения начинается ваша эпоха.
+          </div>
+        </div>
+
         <div class="hardware-grid" id="countriesGrid">
           <!-- Populated dynamically -->
         </div>
 
-        <!-- Bolted Instrument Panel: Country Preview -->
         <div class="dossier-panel" id="countryPreview">
-          <div class="corner-screw tl"></div>
-          <div class="corner-screw tr"></div>
-          <div class="corner-screw bl"></div>
-          <div class="corner-screw br"></div>
+          <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
           <div style="text-align: center; color: var(--listing-gray); padding: 40px 0;">
             Инициализируйте выбор державы для чтения системного досье
           </div>
         </div>
       </section>
 
-      <!-- Screen 2: Main Active Dashboard -->
-      <section class="screen" id="screenGame">
-        <!-- Opal Navigation Tabs -->
-        <div class="opal-tabs">
-          <button class="opal-tab-btn active" data-tab="tabOverview">01 // ОБЗОР & СОВЕТНИКИ</button>
-          <button class="opal-tab-btn" data-tab="tabDiplomacy">02 // ДИПЛОМАТИЯ & ПОСЛЫ</button>
-          <button class="opal-tab-btn" data-tab="tabEconomy">03 // ЭКОНОМИКА & ПРОЕКТЫ</button>
-          <button class="opal-tab-btn" data-tab="tabMilitary">04 // ОБОРОНА & ВОЙСКА</button>
-          <button class="opal-tab-btn" data-tab="tabPolicies">05 // ДОКТРИНЫ & УКАЗЫ</button>
-          <button class="opal-tab-btn" data-tab="tabLog">06 // ХРОНИКА СОБЫТИЙ</button>
+      <!-- WIZARD STEP 2: IDEOLOGY & REGIME STYLE -->
+      <section class="wizard-step" id="wizardStep2">
+        <div class="wizard-progress-bar">
+          <div class="step-badge completed">01. ДЕРЖАВА: <span id="wzChosenCountry">...</span></div>
+          <div class="step-divider">────</div>
+          <div class="step-badge active">02. ИДЕОЛОГИЯ И СТИЛЬ</div>
+          <div class="step-divider">────</div>
+          <div class="step-badge">03. ВНЕШНИЕ СОЮЗЫ</div>
+          <div class="step-divider">────</div>
+          <div class="step-badge">04. УПРАВЛЕНИЕ</div>
         </div>
 
-        <!-- Tab 1: Overview -->
-        <div class="tab-pane active" id="tabOverview">
+        <div class="manifesto-hero">
+          <h1 class="manifesto-title">СТИЛЬ И ИДЕОЛОГИЯ</h1>
+          <div class="manifesto-column">
+            Оставить историческую модель власти или направить нацию по новому политическому вектору? Форма правления определит доверие граждан, инвестиции и военную мобилизацию.
+          </div>
+        </div>
+
+        <div class="bolted-panel full" style="margin-bottom:30px;">
+          <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
+          <div class="panel-title">ДОСТУПНЫЕ ГОСУДАРСТВЕННЫЕ МОДЕЛИ</div>
+          <div id="wizardIdeologyOptions" class="ideology-options-grid"></div>
+        </div>
+
+        <div class="wizard-actions-bar">
+          <button class="btn-black-action" id="btnWzBackTo1">◂ ВЕРНУТЬСЯ К ВЫБОРУ СТРАНЫ</button>
+          <button class="btn-signal-yellow" id="btnWzProceedTo3">ПЕРЕЙТИ К ВЫБОРУ СОЮЗОВ ➔</button>
+        </div>
+      </section>
+
+      <!-- WIZARD STEP 3: SELECT TARGET ALLIES / OPPONENTS -->
+      <section class="wizard-step" id="wizardStep3">
+        <div class="wizard-progress-bar">
+          <div class="step-badge completed">01. ДЕРЖАВА: <span id="wzChosenCountry2">...</span></div>
+          <div class="step-divider">────</div>
+          <div class="step-badge completed">02. ИДЕОЛОГИЯ: <span id="wzChosenIdeology">...</span></div>
+          <div class="step-divider">────</div>
+          <div class="step-badge active">03. ВНЕШНИЕ СОЮЗЫ</div>
+          <div class="step-divider">────</div>
+          <div class="step-badge">04. УПРАВЛЕНИЕ</div>
+        </div>
+
+        <div class="manifesto-hero">
+          <h1 class="manifesto-title">СТРАТЕГИЧЕСКИЙ АЛЬЯНС</h1>
+          <div class="manifesto-column">
+            Определите вектор дипломатии перед вступлением в должность. Вы можете подтвердить исторический баланс или объявить приоритетный союз с ключевой столицей.
+          </div>
+        </div>
+
+        <div class="bolted-panel full" style="margin-bottom:30px;">
+          <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
+          <div class="panel-title">ВЫБЕРИТЕ ЦЕЛЕВОГО СТРАТЕГИЧЕСКОГО ПАРТНЕРА</div>
+          <div id="wizardAlliesOptions" class="allies-options-grid"></div>
+        </div>
+
+        <div class="wizard-actions-bar">
+          <button class="btn-black-action" id="btnWzBackTo2">◂ НАЗАД К ИДЕОЛОГИИ</button>
+          <button class="btn-signal-yellow" id="btnWzStartGame">ВСТУПИТЬ В УПРАВЛЕНИЕ ГОСУДАРСТВОМ ➔</button>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           MAIN GAME CONTROL DASHBOARD (STATE & CITIES)
+           ============================================== -->
+      <section class="wizard-step" id="screenGame">
+        <!-- Opal Navigation Tabs -->
+        <div class="opal-tabs">
+          <button class="opal-tab-btn active" data-tab="tabCities">🏙️ 01 // ГОРОДА & РЕГИОНЫ</button>
+          <button class="opal-tab-btn" data-tab="tabOverview">🏛️ 02 // ОБЗОР & СОВЕТНИКИ</button>
+          <button class="opal-tab-btn" data-tab="tabDiplomacy">🤝 03 // ДИПЛОМАТИЯ & ПОСЛЫ</button>
+          <button class="opal-tab-btn" data-tab="tabEconomy">📈 04 // ЭКОНОМИКА & ПРОЕКТЫ</button>
+          <button class="opal-tab-btn" data-tab="tabMilitary">🛡️ 05 // ОБОРОНА & ВОЙСКА</button>
+          <button class="opal-tab-btn" data-tab="tabPolicies">📜 06 // ДОКТРИНЫ & УКАЗЫ</button>
+          <button class="opal-tab-btn" data-tab="tabLog">📜 07 // ХРОНИКА</button>
+        </div>
+
+        <!-- Tab 1: CITIES & REGIONAL MANAGEMENT -->
+        <div class="tab-pane active" id="tabCities">
+          <div class="bolted-panel full" style="margin-bottom:24px;">
+            <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
+            <div class="panel-title">
+              УПРАВЛЕНИЕ МЕГАПОЛИСАМИ И СТРАТЕГИЧЕСКИМИ РЕГИОНАМИ
+              <span class="instrument-chip">СУБЪЕКТЫ ГОСУДАРСТВА</span>
+            </div>
+            <p style="color:var(--release-gray); font-size:14px; margin-bottom:20px;">
+              Каждый город вносит вклад в ВВП, хранит оборонные арсеналы и обладает собственным уровнем лояльности населения. Инвестируйте в инфраструктуру, чтобы поднимать доходы и сдерживать сепаратизм.
+            </p>
+            <div id="citiesListGrid" class="cities-grid"></div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Overview & Council -->
+        <div class="tab-pane" id="tabOverview">
           <div class="bolted-grid">
             <div class="bolted-panel">
-              <div class="corner-screw tl"></div>
-              <div class="corner-screw tr"></div>
-              <div class="corner-screw bl"></div>
-              <div class="corner-screw br"></div>
+              <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
               
               <div class="panel-title">
                 Сводка Главы Государства
@@ -133,10 +213,7 @@
             </div>
 
             <div class="bolted-panel">
-              <div class="corner-screw tl"></div>
-              <div class="corner-screw tr"></div>
-              <div class="corner-screw bl"></div>
-              <div class="corner-screw br"></div>
+              <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
 
               <div class="panel-title">
                 Донесения советников
@@ -147,7 +224,7 @@
           </div>
         </div>
 
-        <!-- Tab 2: Diplomacy -->
+        <!-- Tab 3: Diplomacy & Dialogue -->
         <div class="tab-pane" id="tabDiplomacy">
           <div class="diplo-grid">
             <div>
@@ -165,14 +242,11 @@
           </div>
         </div>
 
-        <!-- Tab 3: Economy -->
+        <!-- Tab 4: Economy & Projects -->
         <div class="tab-pane" id="tabEconomy">
           <div class="bolted-grid">
             <div class="bolted-panel">
-              <div class="corner-screw tl"></div>
-              <div class="corner-screw tr"></div>
-              <div class="corner-screw bl"></div>
-              <div class="corner-screw br"></div>
+              <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
               
               <div class="panel-title">Бюджетная калибровка</div>
               
@@ -188,10 +262,7 @@
             </div>
 
             <div class="bolted-panel">
-              <div class="corner-screw tl"></div>
-              <div class="corner-screw tr"></div>
-              <div class="corner-screw bl"></div>
-              <div class="corner-screw br"></div>
+              <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
 
               <div class="panel-title">Торговые балансы & Санкции</div>
               <div id="tradeMatrix"></div>
@@ -199,14 +270,11 @@
           </div>
         </div>
 
-        <!-- Tab 4: Military -->
+        <!-- Tab 5: Military & Armies -->
         <div class="tab-pane" id="tabMilitary">
           <div class="bolted-grid">
             <div class="bolted-panel">
-              <div class="corner-screw tl"></div>
-              <div class="corner-screw tr"></div>
-              <div class="corner-screw bl"></div>
-              <div class="corner-screw br"></div>
+              <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
 
               <div class="panel-title">Боевая Готовность</div>
               <div id="milStats" style="display:grid; grid-template-columns:repeat(2, 1fr); gap:12px; margin-bottom:24px;"></div>
@@ -226,10 +294,7 @@
             </div>
 
             <div class="bolted-panel">
-              <div class="corner-screw tl"></div>
-              <div class="corner-screw tr"></div>
-              <div class="corner-screw bl"></div>
-              <div class="corner-screw br"></div>
+              <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
 
               <div class="panel-title">Военные доктрины</div>
               <div id="doctrinesList"></div>
@@ -237,24 +302,18 @@
           </div>
         </div>
 
-        <!-- Tab 5: Policies & Regimes -->
+        <!-- Tab 6: Policies & Decrees -->
         <div class="tab-pane" id="tabPolicies">
           <div class="bolted-grid">
             <div class="bolted-panel">
-              <div class="corner-screw tl"></div>
-              <div class="corner-screw tr"></div>
-              <div class="corner-screw bl"></div>
-              <div class="corner-screw br"></div>
+              <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
 
               <div class="panel-title">Форма правления</div>
               <div id="regimeSelector" style="display:flex; flex-direction:column; gap:10px;"></div>
             </div>
 
             <div class="bolted-panel">
-              <div class="corner-screw tl"></div>
-              <div class="corner-screw tr"></div>
-              <div class="corner-screw bl"></div>
-              <div class="corner-screw br"></div>
+              <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
 
               <div class="panel-title">Верховные Указы</div>
               <div id="decreesList" style="display:flex; flex-direction:column; gap:10px;"></div>
@@ -262,7 +321,7 @@
           </div>
         </div>
 
-        <!-- Tab 6: Log -->
+        <!-- Tab 7: Historical Chronicle -->
         <div class="tab-pane" id="tabLog">
           <div class="bolted-panel full">
             <div class="panel-title">Хроника Правления</div>
@@ -273,22 +332,19 @@
 
     </main>
 
-    <!-- Modal Dilemma Window (Bolted Instrument) -->
+    <!-- Modal Dilemma Window -->
     <div class="modal-overlay" id="eventModal" style="display:none;">
       <div class="modal-bolted">
-        <div class="corner-screw tl"></div>
-        <div class="corner-screw tr"></div>
-        <div class="corner-screw bl"></div>
-        <div class="corner-screw br"></div>
+        <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
 
-        <div class="modal-header-tag" id="modalCategoryTag">CRITICAL INCIDENT</div>
+        <div class="modal-header-tag" id="modalCategoryTag">КРИТИЧЕСКИЙ ГЕОПОЛИТИЧЕСКИЙ ИНЦИДЕНТ</div>
         <h3 id="modalTitle">Заголовок события</h3>
         <div class="modal-text" id="modalText">Описание исторической дилеммы...</div>
         <div class="modal-options-grid" id="modalOptions"></div>
       </div>
     </div>
 
-    <!-- Interactive Dot-Matrix Wordmark Footer (Opal Style) -->
+    <!-- Interactive Dot-Matrix Wordmark Footer -->
     <footer class="opal-footer">
       <canvas id="dotMatrixCanvas"></canvas>
       
@@ -297,9 +353,9 @@
           <strong>STATECRAFT</strong> // ALL RIGHTS RESERVED 2026
         </div>
         <div class="footer-routes">
-          <a href="#" onclick="window.currentGame.saveGame(); return false;">SAVE PROGRESS</a>
-          <a href="#" onclick="location.reload(); return false;">REBOOT OS</a>
-          <a href="https://github.com/ky2renzzz/state-craft-game" target="_blank">SOURCE CODE</a>
+          <a href="#" onclick="window.currentGame.saveGame(); return false;">СОХРАНИТЬ ПРОГРЕСС</a>
+          <a href="#" onclick="location.reload(); return false;">ПЕРЕЗАГРУЗИТЬ OS</a>
+          <a href="https://github.com/ky2renzzz/state-craft-game" target="_blank">ИСХОДНЫЙ КОД</a>
         </div>
       </div>
     </footer>
