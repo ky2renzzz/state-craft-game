@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>STATECRAFT // Geopolitical Hardware Operating System</title>
+  <title>STATECRAFT // Geopolitical Operating System</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,22 +12,20 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <canvas id="grainCanvas"></canvas>
-
   <div id="app">
     <!-- Top Hardware Header -->
     <header class="opal-header">
       <div class="wordmark">
         STATECRAFT
-        <span class="sub">GEOPOLITICAL OS // V26.2</span>
+        <span class="sub">GEOPOLITICAL OS // V26.3</span>
       </div>
 
       <div class="header-meta" id="headerMeta" style="display:none;">
         <div class="country-indicator">
-          <span class="flag-box" id="playerFlag">🏳️</span>
+          <span class="flag-box" id="playerFlag">🇫🇷</span>
           <div class="country-details">
-            <strong id="playerCountryName">COUNTRY</strong>
-            <span id="playerRegimeDisplay">PARLIAMENTARY</span>
+            <strong id="playerCountryName">ФРАНЦИЯ</strong>
+            <span id="playerRegimeDisplay">СОЦИАЛ-ДЕМОКРАТИЯ</span>
           </div>
         </div>
 
@@ -43,23 +41,23 @@
     <section class="instrument-bar" id="instrumentBar" style="display:none;">
       <div class="readout-cell">
         <div class="readout-label">КАЗНА ГОСУДАРСТВА</div>
-        <div class="readout-value" id="resTreasury">$0B</div>
+        <div class="readout-value" id="resTreasury">$180B</div>
       </div>
       <div class="readout-cell">
         <div class="readout-label">ОБОРОНОСПОСОБНОСТЬ</div>
-        <div class="readout-value" id="resMilitary">0/100</div>
+        <div class="readout-value" id="resMilitary">78/100</div>
       </div>
       <div class="readout-cell">
         <div class="readout-label">ОДОБРЕНИЕ НАРОДА</div>
-        <div class="readout-value" id="resStability">50%</div>
+        <div class="readout-value" id="resStability">58%</div>
       </div>
       <div class="readout-cell">
         <div class="readout-label">ГЛОБАЛЬНОЕ ВЛИЯНИЕ</div>
-        <div class="readout-value" id="resInfluence">50/100</div>
+        <div class="readout-value" id="resInfluence">88/100</div>
       </div>
       <div class="readout-cell">
         <div class="readout-label">ЭНЕРГОАВТОНОМИЯ</div>
-        <div class="readout-value" id="resEnergy">100%</div>
+        <div class="readout-value" id="resEnergy">92%</div>
       </div>
     </section>
 
@@ -88,18 +86,141 @@
           </div>
           <h1 class="manifesto-title">ВЫБЕРИТЕ ДЕРЖАВУ</h1>
           <div class="manifesto-column">
-            Пять наций с уникальным геополитическим весом, ресурсами, ВПК и географией. С этого решения начинается ваша эпоха.
+            Пять суверенных наций. Нажмите на державу для активации управления:
           </div>
         </div>
 
+        <!-- Pre-rendered Grid with 5 countries -->
         <div class="hardware-grid" id="countriesGrid">
-          <!-- Populated dynamically -->
+          <div class="hw-card selected" data-country="france">
+            <div>
+              <div class="hw-card-top">
+                <span class="hw-flag">🇫🇷</span>
+                <span class="instrument-chip">FRANCE</span>
+              </div>
+              <div class="hw-country-name">Франция</div>
+              <div class="hw-regime">Европейская социал-демократия</div>
+              <p class="hw-summary">Ядерная держава, развитой парк АЭС, лидер европейской автономии и высокотехнологичный ВПК.</p>
+            </div>
+            <div class="hw-specs">
+              <div>КАЗНА: $180B</div>
+              <div>АРМИЯ: 78/100</div>
+              <div>ОДОБРЕНИЕ: 58%</div>
+              <div>ГОРОДОВ: 4</div>
+            </div>
+          </div>
+
+          <div class="hw-card" data-country="russia">
+            <div>
+              <div class="hw-card-top">
+                <span class="hw-flag">🇷🇺</span>
+                <span class="instrument-chip">RUSSIA</span>
+              </div>
+              <div class="hw-country-name">Россия</div>
+              <div class="hw-regime">Суверенный государственный центризм</div>
+              <p class="hw-summary">Крупнейший ядерный арсенал, самодостаточность в сырье и продовольствии, коридор Север-Юг.</p>
+            </div>
+            <div class="hw-specs">
+              <div>КАЗНА: $210B</div>
+              <div>АРМИЯ: 94/100</div>
+              <div>ОДОБРЕНИЕ: 68%</div>
+              <div>ГОРОДОВ: 4</div>
+            </div>
+          </div>
+
+          <div class="hw-card" data-country="finland">
+            <div>
+              <div class="hw-card-top">
+                <span class="hw-flag">🇫🇮</span>
+                <span class="instrument-chip">FINLAND</span>
+              </div>
+              <div class="hw-country-name">Финляндия</div>
+              <div class="hw-regime">Скандинавская технократическая демократия</div>
+              <p class="hw-summary">Тотальная оборона Sisu, мировой центр квантовых вычислений, 6G и высочайший индекс счастья.</p>
+            </div>
+            <div class="hw-specs">
+              <div>КАЗНА: $75B</div>
+              <div>АРМИЯ: 62/100</div>
+              <div>ОДОБРЕНИЕ: 91%</div>
+              <div>ГОРОДОВ: 4</div>
+            </div>
+          </div>
+
+          <div class="hw-card" data-country="poland">
+            <div>
+              <div class="hw-card-top">
+                <span class="hw-flag">🇵🇱</span>
+                <span class="instrument-chip">POLAND</span>
+              </div>
+              <div class="hw-country-name">Польша</div>
+              <div class="hw-regime">Консервативно-либеральный суверенитет</div>
+              <p class="hw-summary">Самая быстрорастущая армия континентальной Европы (K2, Abrams, Krab) и хаб Trimarium.</p>
+            </div>
+            <div class="hw-specs">
+              <div>КАЗНА: $110B</div>
+              <div>АРМИЯ: 82/100</div>
+              <div>ОДОБРЕНИЕ: 66%</div>
+              <div>ГОРОДОВ: 4</div>
+            </div>
+          </div>
+
+          <div class="hw-card" data-country="azerbaijan">
+            <div>
+              <div class="hw-card-top">
+                <span class="hw-flag">🇦🇿</span>
+                <span class="instrument-chip">AZERBAIJAN</span>
+              </div>
+              <div class="hw-country-name">Азербайджан</div>
+              <div class="hw-regime">Стратегический патернализм и модернизация</div>
+              <p class="hw-summary">Энергетический хаб Каспия (Южный газовый коридор в ЕС), Средний коридор и восстановление Карабаха.</p>
+            </div>
+            <div class="hw-specs">
+              <div>КАЗНА: $95B</div>
+              <div>АРМИЯ: 74/100</div>
+              <div>ОДОБРЕНИЕ: 84%</div>
+              <div>ГОРОДОВ: 4</div>
+            </div>
+          </div>
         </div>
 
         <div class="dossier-panel" id="countryPreview">
           <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
-          <div style="text-align: center; color: var(--listing-gray); padding: 40px 0;">
-            Инициализируйте выбор державы для чтения системного досье
+          
+          <div class="dossier-header">
+            <div>
+              <h2>🇫🇷 Французская Республика</h2>
+              <div style="font-family:var(--font-mono); font-size:12px; color:var(--signal-yellow); margin-bottom:12px;">«Liberté, Égalité, Fraternité»</div>
+              <div class="chip-group">
+                <span class="instrument-chip">ЯДЕРНАЯ ТРИАДА</span>
+                <span class="instrument-chip">ПАРК АЭС</span>
+                <span class="instrument-chip">СТРАТЕГИЧЕСКАЯ АВТОНОМИЯ</span>
+              </div>
+            </div>
+            <div style="text-align: right; font-family:var(--font-mono); font-size:12px; color:var(--listing-gray);">
+              СТОЛИЦА: <strong style="color:#fff;">Париж</strong><br>
+              СТАТУС: <strong style="color:var(--signal-yellow);">Европейская социал-демократия</strong>
+            </div>
+          </div>
+
+          <div class="dossier-body">
+            <div class="dossier-text">
+              <div class="panel-title">ГЕОПОЛИТИЧЕСКИЙ АНАЛИЗ</div>
+              <p>Ядро европейской политики с колоссальным культурным и промышленным авторитетом. Управление требует балансирования между социальными требованиями граждан и амбициями мирового величия.</p>
+              <p style="font-size:13px; color:var(--listing-gray);">Ключевые субъекты управления: Париж, Марсель, Лион, Тулуза.</p>
+            </div>
+
+            <div class="dossier-specs-box">
+              <div>
+                <div class="panel-title">СПЕЦИФИКАЦИЯ ДЕРЖАВЫ</div>
+                <div class="spec-line"><span>ГОСРЕЗЕРВЫ:</span> <strong>$180 млрд</strong></div>
+                <div class="spec-line"><span>ОБОРОННЫЙ КОНТУР:</span> <strong>78 / 100</strong></div>
+                <div class="spec-line"><span>ОДОБРЕНИЕ ГРАЖДАН:</span> <strong>58%</strong></div>
+                <div class="spec-line"><span>ГЛОБАЛЬНЫЙ ВЕС:</span> <strong>88 / 100</strong></div>
+                <div class="spec-line"><span>ЭНЕРГОАВТОНОМИЯ:</span> <strong>92%</strong></div>
+              </div>
+
+              <button class="btn-apply-reveal" id="btnConfirmCountry">ВЫБРАТЬ И ПЕРЕЙТИ К ИДЕОЛОГИИ ➔</button>
+            </div>
           </div>
         </div>
       </section>
@@ -107,7 +228,7 @@
       <!-- WIZARD STEP 2: IDEOLOGY & REGIME STYLE -->
       <section class="wizard-step" id="wizardStep2">
         <div class="wizard-progress-bar">
-          <div class="step-badge completed">01. ДЕРЖАВА: <span id="wzChosenCountry">...</span></div>
+          <div class="step-badge completed">01. ДЕРЖАВА: <span id="wzChosenCountry">ФРАНЦИЯ</span></div>
           <div class="step-divider">────</div>
           <div class="step-badge active">02. ИДЕОЛОГИЯ И СТИЛЬ</div>
           <div class="step-divider">────</div>
@@ -138,9 +259,9 @@
       <!-- WIZARD STEP 3: SELECT TARGET ALLIES / OPPONENTS -->
       <section class="wizard-step" id="wizardStep3">
         <div class="wizard-progress-bar">
-          <div class="step-badge completed">01. ДЕРЖАВА: <span id="wzChosenCountry2">...</span></div>
+          <div class="step-badge completed">01. ДЕРЖАВА: <span id="wzChosenCountry2">ФРАНЦИЯ</span></div>
           <div class="step-divider">────</div>
-          <div class="step-badge completed">02. ИДЕОЛОГИЯ: <span id="wzChosenIdeology">...</span></div>
+          <div class="step-badge completed">02. ИДЕОЛОГИЯ: <span id="wzChosenIdeology">СОЦИАЛ-ДЕМОКРАТИЯ</span></div>
           <div class="step-divider">────</div>
           <div class="step-badge active">03. ВНЕШНИЕ СОЮЗЫ</div>
           <div class="step-divider">────</div>
@@ -170,7 +291,6 @@
            MAIN GAME CONTROL DASHBOARD (STATE & CITIES)
            ============================================== -->
       <section class="wizard-step" id="screenGame">
-        <!-- Opal Navigation Tabs -->
         <div class="opal-tabs">
           <button class="opal-tab-btn active" data-tab="tabCities">🏙️ 01 // ГОРОДА & РЕГИОНЫ</button>
           <button class="opal-tab-btn" data-tab="tabOverview">🏛️ 02 // ОБЗОР & СОВЕТНИКИ</button>
@@ -346,8 +466,6 @@
 
     <!-- Interactive Dot-Matrix Wordmark Footer -->
     <footer class="opal-footer">
-      <canvas id="dotMatrixCanvas"></canvas>
-      
       <div class="footer-link-row">
         <div>
           <strong>STATECRAFT</strong> // ALL RIGHTS RESERVED 2026
@@ -360,11 +478,11 @@
       </div>
     </footer>
 
-    <!-- Toast Notifications -->
     <div class="toast-well" id="toastContainer"></div>
   </div>
 
 <script>
+// DATA SOURCES
 const COUNTRIES_DATA = {
   france: {
     id: "france",
@@ -375,32 +493,19 @@ const COUNTRIES_DATA = {
     defaultIdeology: "social_state",
     ideologyName: "Европейская социал-демократия",
     capital: "Париж",
-    stats: {
-      treasury: 180,
-      military: 78,
-      stability: 58,
-      influence: 88,
-      energy: 92,
-      taxRate: 32,
-      corruption: 14
-    },
-    traits: [
-      "Ядерная триада и постоянный член СБ ООН",
-      "Энергетический суверенитет за счет развитого парка АЭС",
-      "Лидер европейской стратегической автономии",
-      "Высокая протестная активность профсоюзов"
-    ],
+    stats: { treasury: 180, military: 78, stability: 58, influence: 88, energy: 92, taxRate: 32, corruption: 14 },
+    traits: ["Ядерная триада и член СБ ООН", "Парк АЭС (автономия 92%)", "Лидер европейской автономии", "Протестная активность профсоюзов"],
     cities: [
       { id: "paris", name: "Париж", population: "11.1 млн", role: "Политический и финансовый центр", loyalty: 65, gdp: 38, focus: "Финансы & Дипломатия" },
-      { id: "marseille", name: "Марсель", population: "1.8 млн", role: "Главный средиземноморский порт и логистика", loyalty: 58, gdp: 20, focus: "Морская торговля" },
-      { id: "lyon", name: "Лион", population: "2.3 млн", role: "Фармацевтика, химия и высокие технологии", loyalty: 72, gdp: 24, focus: "Технологии & Наука" },
+      { id: "marseille", name: "Марсель", population: "1.8 млн", role: "Главный средиземноморский порт", loyalty: 58, gdp: 20, focus: "Морская торговля" },
+      { id: "lyon", name: "Лион", population: "2.3 млн", role: "Фармацевтика и химическая отрасль", loyalty: 72, gdp: 24, focus: "Технологии & Наука" },
       { id: "toulouse", name: "Тулуза", population: "1.4 млн", role: "Аэрокосмический хаб (Airbus, ВПК)", loyalty: 80, gdp: 26, focus: "ВПК & Авиация" }
     ],
     relations: { russia: 35, finland: 75, poland: 65, azerbaijan: 42 },
     advisors: [
-      { role: "Премьер-министр", name: "Мишель Дюпон", advice: "Необходимо балансировать дефицит бюджета и не провоцировать профсоюзы." },
-      { role: "Министр обороны", name: "Генерал Марсо", advice: "Программа истребителей 6-го поколения требует расширения европейского финансирования." },
-      { role: "Глава дипломатии", name: "Элеонор де Валуа", advice: "Франция должна стать независимым мостом переговоров между Востоком и Западом." }
+      { role: "Премьер-министр", name: "Мишель Дюпон", advice: "Необходимо балансировать дефицит бюджета и избегать всеобщих забастовок." },
+      { role: "Министр обороны", name: "Генерал Марсо", advice: "Программа истребителей 6-го поколения требует европейского пула заказов." },
+      { role: "Глава дипломатии", name: "Элеонор де Валуа", advice: "Франция должна оставаться суверенным мостом переговоров между блоками." }
     ],
     projects: [
       { id: "fr_nuclear_gen", name: "Реакторы EPR нового поколения", cost: 35, effect: "+15% к энергии, +$8B дохода в ход", active: false },
@@ -408,22 +513,10 @@ const COUNTRIES_DATA = {
       { id: "fr_ai_hub", name: "Парижский суверенный кластер ИИ", cost: 25, effect: "+$12B дохода, технологическое лидерство", active: false }
     ],
     dialoguePresets: {
-      russia: {
-        greeting: "Париж всегда ценил архитектуру европейской безопасности, но текущие противоречия требуют взаимных гарантий.",
-        proposals: ["Предложить архитектуру деэскалации", "Заключить соглашение по ядерному нераспространению", "Культурно-научный диалог"]
-      },
-      poland: {
-        greeting: "Приветствуем польских союзников. Будущее восточного фланга Европы решается прямо сейчас.",
-        proposals: ["Совместная закупка вооружений", "Фонд пограничной безопасности", "Энергетический пакт"]
-      },
-      finland: {
-        greeting: "Хельсинки — пример стойкости и технологического прогресса в балтийском регионе.",
-        proposals: ["Пакт об арктических исследованиях", "Кибероборонная инициатива", "Образовательный альянс"]
-      },
-      azerbaijan: {
-        greeting: "Баку играет критическую роль в каспийской энергетике и логистике, хотя мы внимательно следим за балансом на Кавказе.",
-        proposals: ["Энергетический меморандум по газу", "Инвестиции в зеленую энергетику Карабаха", "Кавказский мирный форум"]
-      }
+      russia: { greeting: "Париж ценит европейскую безопасность, но требует взаимных гарантий.", proposals: ["Предложить архитектуру деэскалации", "Пакт о нераспространении", "Культурно-научный диалог"] },
+      poland: { greeting: "Приветствуем союзников. Будущее восточного фланга решается прямо сейчас.", proposals: ["Совместная закупка вооружений", "Фонд пограничной безопасности", "Энергетический пакт"] },
+      finland: { greeting: "Хельсинки — пример стойкости и технологического прогресса.", proposals: ["Арктические исследования", "Кибероборонная инициатива", "Образовательный альянс"] },
+      azerbaijan: { greeting: "Баку играет критическую роль в каспийской энергетике и логистике.", proposals: ["Энергетический меморандум по газу", "Зеленая энергетика Карабаха", "Кавказский мирный форум"] }
     }
   },
 
@@ -436,55 +529,30 @@ const COUNTRIES_DATA = {
     defaultIdeology: "sovereign_statism",
     ideologyName: "Суверенный государственный центризм",
     capital: "Москва",
-    stats: {
-      treasury: 210,
-      military: 94,
-      stability: 68,
-      influence: 76,
-      energy: 98,
-      taxRate: 20,
-      corruption: 28
-    },
-    traits: [
-      "Крупнейший ядерный арсенал на планете",
-      "Самодостаточность в углеводородах, зерне и металлах",
-      "Контроль над Северным морским путем и Арктикой",
-      "Тяжелое санкционное давление и необходимость импортозамещения"
-    ],
+    stats: { treasury: 210, military: 94, stability: 68, influence: 76, energy: 98, taxRate: 20, corruption: 28 },
+    traits: ["Крупнейший ядерный арсенал планеты", "Самодостаточность в зерне, нефти и газе", "Северный морской путь и Арктика", "Санкционное давление и импортозамещение"],
     cities: [
       { id: "moscow", name: "Москва", population: "13.1 млн", role: "Столичный финансовый и управленческий центр", loyalty: 78, gdp: 55, focus: "Управление & IT" },
-      { id: "spb", name: "Санкт-Петербург", population: "5.6 млн", role: "Балтийский морской фасад и судостроение", loyalty: 66, gdp: 28, focus: "Судостроение & Культура" },
+      { id: "spb", name: "Санкт-Петербург", population: "5.6 млн", role: "Балтийский морской фасад и верфи", loyalty: 66, gdp: 28, focus: "Судостроение & Культура" },
       { id: "ekb", name: "Екатеринбург", population: "1.6 млн", role: "Уральский оборонно-промышленный комплекс", loyalty: 82, gdp: 25, focus: "Тяжелая промышленность" },
       { id: "kazan", name: "Казань", population: "1.3 млн", role: "Авиастроение, нефтехимия и IT-иннополис", loyalty: 85, gdp: 22, focus: "Авиастроение & Нефть" }
     ],
     relations: { france: 32, finland: 28, poland: 18, azerbaijan: 72 },
     advisors: [
-      { role: "Секретарь Совбеза", name: "Николай Воронов", advice: "На западных рубежах необходима эшелонированная оборона. Арктические базы должны быть усилены." },
-      { role: "Глава Минэкономразвития", name: "Анна Мельникова", advice: "Расчеты в нацвалютах и развитие коридора через Баку в Индию окупят санкционные издержки." },
-      { role: "Спецпредставитель МИД", name: "Сергей Ларионов", advice: "Сохранение стратегического партнерства с Баку — ключ к стабильности всего Закавказья." }
+      { role: "Секретарь Совбеза", name: "Николай Воронов", advice: "На западных рубежах необходима эшелонированная оборона. Арктику нужно укреплять." },
+      { role: "Глава Минэкономразвития", name: "Анна Мельникова", advice: "Расчеты в нацвалютах и коридор через Баку в Индию окупят санкционные издержки." },
+      { role: "Спецпредставитель МИД", name: "Сергей Ларионов", advice: "Стратегическое партнерство с Баку — залог спокойствия в Закавказье." }
     ],
     projects: [
       { id: "ru_arctic_fleet", name: "Линейка атомных ледоколов 'Лидер'", cost: 30, effect: "+$14B в ход от транзита, абсолютный контроль Арктики", active: false },
       { id: "ru_instc", name: "Коридор Север-Юг (через Азербайджан и Иран)", cost: 25, effect: "+$18B в ход, взрывной рост торговли", active: false },
-      { id: "ru_vpk_expansion", name: "Роботизация и масштабирование ВПК", cost: 40, effect: "+15 военной мощи, выпуск гиперзвуковых систем", active: false }
+      { id: "ru_vpk_expansion", name: "Роботизация и масштабирование ВПК", cost: 40, effect: "+15 военной мощи, гиперзвуковые комплексы", active: false }
     ],
     dialoguePresets: {
-      france: {
-        greeting: "Москва готова к прагматичному диалогу, если в Париже возобладает стратегия суверенных интересов.",
-        proposals: ["Предложить консультации по безопасности", "Возобновить культурные и научные миссии", "Обсудить разблокировку активов"]
-      },
-      azerbaijan: {
-        greeting: "Приветствуем стратегического партнера на Каспии. Декларация о союзническом взаимодействии крепка.",
-        proposals: ["Расширение ж/д коридора Решт-Астара", "Синхронизация энергосистем Кавказа", "Совместный контроль биоресурсов"]
-      },
-      poland: {
-        greeting: "Исторические разногласия глубоки, но география неизменна. Мы открыты для каналов предотвращения военных инцидентов.",
-        proposals: ["Горячая линия связи генеральных штабов", "Демилитаризованный мониторинг границы", "Меморандум о транзите"]
-      },
-      finland: {
-        greeting: "Протяженная граница требует предсказуемости, невзирая на изменения в статусе безопасности Финляндии.",
-        proposals: ["Договор о предотвращении инцидентов на Балтике", "Мониторинг приграничных лесов", "Возобновление приграничных КПП"]
-      }
+      france: { greeting: "Москва готова к прагматичному диалогу, если возобладают суверенные интересы.", proposals: ["Консультации по безопасности", "Возобновление научных миссий", "Разблокировка активов"] },
+      azerbaijan: { greeting: "Приветствуем стратегического партнера на Каспии. Союзнические узы крепки.", proposals: ["Ж/д коридор Решт-Астара", "Синхронизация энергосистем", "Контроль биоресурсов"] },
+      poland: { greeting: "География неизменна. Мы открыты для каналов предотвращения инцидентов.", proposals: ["Горячая линия генштабов", "Мониторинг границы", "Меморандум о транзите"] },
+      finland: { greeting: "Протяженная граница требует предсказуемости.", proposals: ["Предотвращение инцидентов на Балтике", "Экология лесов", "Возобновление КПП"] }
     }
   },
 
@@ -497,55 +565,30 @@ const COUNTRIES_DATA = {
     defaultIdeology: "technocracy",
     ideologyName: "Скандинавская технократическая демократия",
     capital: "Хельсинки",
-    stats: {
-      treasury: 75,
-      military: 62,
-      stability: 91,
-      influence: 54,
-      energy: 82,
-      taxRate: 38,
-      corruption: 4
-    },
-    traits: [
-      "Концепция тотальной обороны ('Sisu') и бункерная инфраструктура",
-      "Один из самых низких уровней коррупции в мире",
-      "Мировой центр квантовых вычислений, 6G и лесохимии",
-      "1340 км прямой границы с Россией"
-    ],
+    stats: { treasury: 75, military: 62, stability: 91, influence: 54, energy: 82, taxRate: 38, corruption: 4 },
+    traits: ["Концепция тотальной обороны ('Sisu')", "Один из самых низких уровней коррупции", "Мировой центр квантовых вычислений и 6G", "1340 км прямой границы с Россией"],
     cities: [
       { id: "helsinki", name: "Хельсинки", population: "1.5 млн", role: "Столичный мегаполис и финансовый центр", loyalty: 92, gdp: 32, focus: "ИТ, Кванты & Финансы" },
       { id: "tampere", name: "Тампере", population: "400 тыс.", role: "Промышленное ядро и технологические стартапы", loyalty: 88, gdp: 18, focus: "Робототехника & Машиностроение" },
       { id: "turku", name: "Турку", population: "350 тыс.", role: "Судостроение круизных судов и биотехнологии", loyalty: 85, gdp: 16, focus: "Судостроение" },
-      { id: "oulu", name: "Оулу", population: "250 тыс.", role: "Северная Кремниевая долина (телекоммуникации 6G)", loyalty: 90, gdp: 15, focus: "Телекоммуникации 6G" }
+      { id: "oulu", name: "Оулу", population: "250 тыс.", role: "Северная Кремниевая долина (телеком 6G)", loyalty: 90, gdp: 15, focus: "Телекоммуникации 6G" }
     ],
     relations: { france: 82, russia: 25, poland: 80, azerbaijan: 55 },
     advisors: [
-      { role: "Командующий Обороной", name: "Генерал Тимо Кивинен", advice: "Система резервистов способна поставить под ружье 280 тысяч бойцов за 48 часов." },
-      { role: "Министр социальной защиты", name: "Каарина Сало", advice: "Сохранение северной модели благосостояния требует высокой производительности труда." },
-      { role: "Глава Nokia & Tech Consortium", name: "Юхани Лехтонен", advice: "Безопасные сети связи и квантовая криптография — наш главный геополитический экспорт." }
+      { role: "Командующий Обороной", name: "Генерал Тимо Кивинен", advice: "Резервисты способны мобилизовать 280 тысяч бойцов за 48 часов." },
+      { role: "Министр соцзащиты", name: "Каарина Сало", advice: "Северная модель благосостояния требует стабильных инвестиций в образование." },
+      { role: "Глава Nokia & Tech Consortium", name: "Юхани Лехтонен", advice: "Безопасные сети связи и квантовая криптография — наш главный экспорт." }
     ],
     projects: [
       { id: "fi_f35_fleet", name: "Развертывание 64 истребителей F-35A", cost: 24, effect: "+20 к обороноспособности, тотальное господство в воздухе", active: false },
-      { id: "fi_quantum_hub", name: "Северный центр квантовой безопасности", cost: 16, effect: "+$9B дохода, неуязвимость к кибератакам", active: false },
-      { id: "fi_border_fort", name: "Программа интеллектуальной границы и укреплений", cost: 12, effect: "+15 к национальной стабильности, защита от гибридных угроз", active: false }
+      { id: "fi_quantum_hub", name: "Северный центр квантовой безопасности", cost: 16, effect: "+$9B дохода, защита от кибератак", active: false },
+      { id: "fi_border_fort", name: "Интеллектуальная граница и укрепления", cost: 12, effect: "+15 к национальной стабильности", active: false }
     ],
     dialoguePresets: {
-      france: {
-        greeting: "Хельсинки разделяет идеалы европейской солидарности и высоких технологий.",
-        proposals: ["Совместная разработка автономных дронов", "Инвестиции в экологическое судостроение", "Академический обмен"]
-      },
-      poland: {
-        greeting: "Безопасность Балтийского региона связывает нас неразрывно. Мы готовы координировать береговую оборону.",
-        proposals: ["Балтийский щит ПВО/ПРО", "Обмен опытом тотальной обороны", "Инфраструктура морских портов"]
-      },
-      russia: {
-        greeting: "Мы стремимся к предсказуемости и твердой обороне. Любой диалог должен уважать суверенитет Финляндии.",
-        proposals: ["Инспекции приграничных полос", "Сотрудничество по спасению на водах", "Экологический мониторинг Балтики"]
-      },
-      azerbaijan: {
-        greeting: "Финляндия заинтересована в чистых технологиях и расширении коридоров сырьевых поставок.",
-        proposals: ["Экспорт финских систем очистки воды", "Зеленые технологии в энергосекторе", "ИТ-стартапы и инвестиции"]
-      }
+      france: { greeting: "Хельсинки разделяет идеалы европейской солидарности и технологий.", proposals: ["Автономные дроны", "Экологическое судостроение", "Академический обмен"] },
+      poland: { greeting: "Безопасность Балтики связывает нас неразрывно.", proposals: ["Балтийский щит ПВО", "Опыт тотальной обороны", "Морские порты"] },
+      russia: { greeting: "Мы стремимся к предсказуемости и твердой обороне.", proposals: ["Инспекции границ", "Спасение на водах", "Экология Балтики"] },
+      azerbaijan: { greeting: "Финляндия заинтересована в чистых технологиях и коридорах сырья.", proposals: ["Системы очистки воды", "Зеленые энерготехнологии", "ИТ-инвестиции"] }
     }
   },
 
@@ -558,55 +601,30 @@ const COUNTRIES_DATA = {
     defaultIdeology: "liberal",
     ideologyName: "Консервативно-либеральный суверенитет",
     capital: "Варшава",
-    stats: {
-      treasury: 110,
-      military: 82,
-      stability: 66,
-      influence: 68,
-      energy: 70,
-      taxRate: 26,
-      corruption: 16
-    },
-    traits: [
-      "Самая быстрорастущая сухопутная армия континентальной Европы",
-      "Проект 'Инициатива трех морей' (Trimarium)",
-      "Ускоренный отказ от угля в пользу атомной энергетики",
-      "Ключевой логистический узел восточноевропейского ТВД"
-    ],
+    stats: { treasury: 110, military: 82, stability: 66, influence: 68, energy: 70, taxRate: 26, corruption: 16 },
+    traits: ["Самая быстрорастущая армия Европы (K2, Abrams)", "Проект 'Инициатива трех морей' (Trimarium)", "Отказ от угля в пользу атома", "Ключевой логистический узел региона"],
     cities: [
       { id: "warsaw", name: "Варшава", population: "3.1 млн", role: "Столичный финансовый центр региона", loyalty: 70, gdp: 36, focus: "Банки & Дипломатия" },
       { id: "krakow", name: "Краков", population: "1.4 млн", role: "Научно-исследовательский и технологический хаб", loyalty: 75, gdp: 20, focus: "IT-аутсорсинг & Наука" },
-      { id: "gdansk", name: "Гданьск", population: "1.1 млн", role: "Глубоководный морской терминал и нефтяной порт", loyalty: 68, gdp: 22, focus: "Энерготранзит & Порт" },
+      { id: "gdansk", name: "Гданьск", population: "1.1 млн", role: "Глубоководный морской терминал и порт", loyalty: 68, gdp: 22, focus: "Энерготранзит & Порт" },
       { id: "wroclaw", name: "Вроцлав", population: "1.2 млн", role: "Производство полупроводников и машиностроение", loyalty: 74, gdp: 18, focus: "Чипы & Автопром" }
     ],
     relations: { france: 64, russia: 15, finland: 82, azerbaijan: 60 },
     advisors: [
-      { role: "Начальник Генштаба", name: "Генерал Веслав Кукула", advice: "Танковые клинья K2 Black Panther и реактивные системы сделают оборону неприступной." },
-      { role: "Министр финансов", name: "Збигнев Новак", advice: "Военные расходы на уровне 4.2% ВВП требуют аккуратности с государственным долгом." },
+      { role: "Начальник Генштаба", name: "Генерал Веслав Кукула", advice: "Танковые клинья K2 Black Panther и САУ Krab сделают оборону неприступной." },
+      { role: "Министр финансов", name: "Збигнев Новак", advice: "Военные расходы на уровне 4.2% ВВП требуют аккуратности с госдолгом." },
       { role: "Координатор Trimarium", name: "Ядвига Ковальска", advice: "Газопровод Baltic Pipe и новые интерконнекторы делают Польшу ключевым энергохабом." }
     ],
     projects: [
-      { id: "pl_k2_production", name: "Локализация танков K2PL и САУ Krab", cost: 28, effect: "+16 к военной мощи, статус оружейного экспортера", active: false },
-      { id: "pl_cpk_airport", name: "Мега-хаб CPK (Центральный коммуникационный порт)", cost: 32, effect: "+$16B в ход, колоссальный транзитный потенциал", active: false },
-      { id: "pl_nuclear_power", name: "Строительство первой польской АЭС на Балтике", cost: 35, effect: "+22% к энергетической безопасности, дешевое электричество", active: false }
+      { id: "pl_k2_production", name: "Локализация танков K2PL и САУ Krab", cost: 28, effect: "+16 к военной мощи, статус экспортера оружия", active: false },
+      { id: "pl_cpk_airport", name: "Мега-хаб CPK (Центральный коммуникационный порт)", cost: 32, effect: "+$16B в ход, колоссальный транзит", active: false },
+      { id: "pl_nuclear_power", name: "Первая польская АЭС на Балтике", cost: 35, effect: "+22% к энергобезопасности", active: false }
     ],
     dialoguePresets: {
-      france: {
-        greeting: "Варшава ценит европейское партнерство, но требует равного учета интересов восточного фланга.",
-        proposals: ["Интеграция систем ПВО средних высот", "Промышленные субсидии для ЕС-производителей", "Сельскохозяйственный компромисс"]
-      },
-      russia: {
-        greeting: "Польша твердо стоит на страже европейских границ и не допустит изменения статус-кво.",
-        proposals: ["Демилитаризация пограничной полосы", "Соглашение о недопущении воздушных инцидентов", "Возврат культурных ценностей"]
-      },
-      finland: {
-        greeting: "Север и Центр Европы должны действовать как единый кулак. Ваша выучка вдохновляет.",
-        proposals: ["Совместные масштабные маневры в Балтийском море", "Интеграция систем береговой ракетной обороны", "Кибер-безопасность"]
-      },
-      azerbaijan: {
-        greeting: "Баку — важнейший альтернативный поставщик энергоносителей в Европу и партнер по Среднему коридору.",
-        proposals: ["Импорт каспийских углеводородов через интерконнекторы", "Поставки польской агропродукции и техники", "Сотрудничество в сфере ВПК"]
-      }
+      france: { greeting: "Варшава ценит партнерство, но требует равного учета восточного фланга.", proposals: ["Интеграция ПВО", "Промышленные субсидии ЕС", "Сельхоз-компромисс"] },
+      russia: { greeting: "Польша твердо стоит на страже европейских границ.", proposals: ["Демилитаризация пограничной полосы", "Недопущение инцидентов", "Возврат ценностей"] },
+      finland: { greeting: "Север и Центр Европы должны действовать слаженно.", proposals: ["Морские учения на Балтике", "Береговая ракетная оборона", "Кибер-безопасность"] },
+      azerbaijan: { greeting: "Баку — важнейший альтернативный поставщик энергоносителей в ЕС.", proposals: ["Импорт нефти и СПГ", "Поставки польской техники", "Сотрудничество ВПК"] }
     }
   },
 
@@ -619,21 +637,8 @@ const COUNTRIES_DATA = {
     defaultIdeology: "sovereign_statism",
     ideologyName: "Стратегический патернализм и модернизация",
     capital: "Баку",
-    stats: {
-      treasury: 95,
-      military: 74,
-      stability: 84,
-      influence: 64,
-      energy: 99,
-      taxRate: 18,
-      corruption: 22
-    },
-    traits: [
-      "Энергетическое сердце Южного Кавказа (Южный газовый коридор в ЕС)",
-      "Ключевой перекресток 'Север-Юг' и 'Восток-Запад' (Средний коридор)",
-      "Современная армия (высокоточные ракеты, дроны, союз с Турцией)",
-      "Реинтеграция Карабаха и развитие 'зеленых энергозон'"
-    ],
+    stats: { treasury: 95, military: 74, stability: 84, influence: 64, energy: 99, taxRate: 18, corruption: 22 },
+    traits: ["Энергетическое сердце Южного Кавказа (Южный газовый коридор в ЕС)", "Перекресток 'Север-Юг' и 'Среднего коридора'", "Современная армия (дроны, высокоточное оружие, союз с Турцией)", "Реинтеграция Карабаха и развитие зеленых энергозон"],
     cities: [
       { id: "baku", name: "Баку", population: "3.2 млн", role: "Нефтяная столица, суверенный фонд SOFAZ и морской порт", loyalty: 88, gdp: 45, focus: "Нефть, Газ & Финансы" },
       { id: "ganja", name: "Гянджа", population: "500 тыс.", role: "Второй индустриальный центр и агрологистика", loyalty: 82, gdp: 18, focus: "Агропром & Промышленность" },
@@ -643,31 +648,19 @@ const COUNTRIES_DATA = {
     relations: { france: 40, russia: 74, finland: 56, poland: 62 },
     advisors: [
       { role: "Помощник Президента по внешней политике", name: "Хикмет Гасанов", advice: "Балансирование интересов мировых игроков позволяет нам оставаться независимым центром силы." },
-      { role: "Министр энергетики", name: "Парвиз Набиев", advice: "Европа отчаянно нуждается в увеличении прокачки по Южному газовому коридору до 20 млрд кубометров в год." },
-      { role: "Командующий Сил Специального Назначения", name: "Генерал-полковник Заур Мирзоев", advice: "Дроны-камикадзе и горный спецназ обеспечивают надежную защиту горных рубежей." }
+      { role: "Министр энергетики", name: "Парвиз Набиев", advice: "Европа нуждается в увеличении прокачки по Южному газовому коридору до 20 млрд м³ в год." },
+      { role: "Командующий Сил Специального Назначения", name: "Генерал-полковник Заур Мирзоев", advice: "Дроны-камикадзе и горный спецназ обеспечивают защиту горных рубежей." }
     ],
     projects: [
-      { id: "az_sgc_expansion", name: "Удвоение мощности Южного газового коридора", cost: 26, effect: "+$19B дохода в ход, гигантское влияние на энергорынок ЕС", active: false },
-      { id: "az_smart_karabakh", name: "Мегапроект 'Smart Villages' и 'Зеленая зона Карабах'", cost: 22, effect: "+18 к стабильности, рост международного авторитета", active: false },
-      { id: "az_middle_corridor", name: "Модернизация порта Алят и Баку-Тбилиси-Карс", cost: 18, effect: "+$14B от транзита контейнеров Китай-Европа", active: false }
+      { id: "az_sgc_expansion", name: "Удвоение мощности Южного газового коридора", cost: 26, effect: "+$19B дохода в ход, влияние на энергорынок ЕС", active: false },
+      { id: "az_smart_karabakh", name: "Мегапроект 'Smart Villages' и 'Зеленый Карабах'", cost: 22, effect: "+18 к стабильности, рост авторитета", active: false },
+      { id: "az_middle_corridor", name: "Модернизация порта Алят и Баку-Тбилиси-Карс", cost: 18, effect: "+$14B от транзита контейнеров", active: false }
     ],
     dialoguePresets: {
-      russia: {
-        greeting: "Баку ценит союзнические договоренности и развитие трансконтинентального коридора Север-Юг.",
-        proposals: ["Модернизация стыковых ж/д станций", "Координация цен на региональных рынках газа", "Культурно-гуманитарные форумы"]
-      },
-      france: {
-        greeting: "Мы открыты к конструктивному диалогу при условии уважения суверенитета и баланса в Закавказье.",
-        proposals: ["Консультации по региональному миру", "Допуск компаний к зеленым тендерам", "Защита энергетических инвестиций"]
-      },
-      poland: {
-        greeting: "Польша — надежный партнер в Центральной Европе. Мы готовы стать опорой вашей энергобезопасности.",
-        proposals: ["Долгосрочный контракт на поставку нефти и СПГ", "Военно-технические консультации", "Инвестиции в логистический парк Варшавы"]
-      },
-      finland: {
-        greeting: "Мы высоко ценим финские ноу-хау в сфере экологии, чистой воды и телекоммуникаций.",
-        proposals: ["Внедрение финских чистых технологий в Карабахе", "Совместные образовательные программы для инженеров", "Кибер-безопасность сетей"]
-      }
+      russia: { greeting: "Баку ценит союзнические договоренности и развитие коридора Север-Юг.", proposals: ["Стыковые ж/д станции", "Координация цен на газ", "Культурные форумы"] },
+      france: { greeting: "Мы открыты к диалогу при условии уважения суверенитета и баланса в регионе.", proposals: ["Региональный мир", "Зеленые тендеры", "Защита инвестиций"] },
+      poland: { greeting: "Польша — надежный партнер. Мы готовы стать опорой вашей энергобезопасности.", proposals: ["Контракт на поставку нефти", "Военные консультации", "Логистический парк"] },
+      finland: { greeting: "Мы высоко ценим финские ноу-хау в экологии, воде и связи.", proposals: ["Чистые технологии в Карабахе", "Образовательные программы", "Кибер-безопасность"] }
     }
   }
 };
@@ -678,37 +671,11 @@ const HISTORICAL_EVENTS = [
     title: "Глобальный кризис на мировых рынках углеводородов",
     category: "Экономика & Энергетика",
     icon: "⚡",
-    text: "Обострение в Ормузском проливе привело к скачку цен на нефть до $120 за баррель и дефициту сжиженного газа. Промышленность стран-импортеров под угрозой стагфляции, тогда как державы-экспортеры получают колоссальные сверхдоходы.",
+    text: "Обострение на Ближнем Востоке привело к скачку цен на нефть и газ. Промышленность стран-импортеров под угрозой стагфляции, тогда как державы-экспортеры получают колоссальные сверхдоходы.",
     options: [
-      {
-        text: "Ввести государственное субсидирование энерготарифов для населения",
-        impact: "Казна -$15B, Стабильность +10%",
-        action: (g) => {
-          g.player.stats.treasury -= 15;
-          g.player.stats.stability = Math.min(100, g.player.stats.stability + 10);
-        }
-      },
-      {
-        text: "Переложить бремя на свободный рынок и стимулировать ускоренный энергопереход",
-        impact: "Казна +$5B, Стабильность -8%, Энергетика +5%",
-        action: (g) => {
-          g.player.stats.treasury += 5;
-          g.player.stats.stability = Math.max(0, g.player.stats.stability - 8);
-          g.player.stats.energy = Math.min(100, g.player.stats.energy + 5);
-        }
-      },
-      {
-        text: "Использовать кризис для заключения эксклюзивных двусторонних энергетических сделок",
-        impact: "Влияние +12, Казна +$10B (для экспортеров) / -$5B (для импортеров)",
-        action: (g) => {
-          g.player.stats.influence = Math.min(100, g.player.stats.influence + 12);
-          if (["azerbaijan", "russia"].includes(g.player.id)) {
-            g.player.stats.treasury += 18;
-          } else {
-            g.player.stats.treasury -= 8;
-          }
-        }
-      }
+      { text: "Ввести субсидирование энерготарифов для населения", impact: "Казна -$15B, Стабильность +10%", action: (g) => { g.player.stats.treasury -= 15; g.player.stats.stability = Math.min(100, g.player.stats.stability + 10); } },
+      { text: "Стимулировать ускоренный энергопереход на свободном рынке", impact: "Казна +$5B, Стабильность -8%, Энергия +5%", action: (g) => { g.player.stats.treasury += 5; g.player.stats.stability = Math.max(0, g.player.stats.stability - 8); g.player.stats.energy = Math.min(100, g.player.stats.energy + 5); } },
+      { text: "Заключить эксклюзивные двусторонние энергетические сделки", impact: "Влияние +12, Казна +$10B (экспортеры) / -$5B (импортеры)", action: (g) => { g.player.stats.influence = Math.min(100, g.player.stats.influence + 12); if (["azerbaijan", "russia"].includes(g.player.id)) { g.player.stats.treasury += 18; } else { g.player.stats.treasury -= 8; } } }
     ]
   },
   {
@@ -716,140 +683,22 @@ const HISTORICAL_EVENTS = [
     title: "Массированная кибератака на критическую инфраструктуру",
     category: "Оборона & Безопасность",
     icon: "💻",
-    text: "Неизвестная высокопрофессиональная хакерская группа атаковала серверы управления энергосетями, центробанка и диспетчерских служб. Подозрения падают на иностранные спецслужбы.",
+    text: "Неизвестная группировка атаковала серверы управления энергосетями, центробанка и транспортных узлов.",
     options: [
-      {
-        text: "Ответить зеркальным асимметричным киберударом по серверам подозреваемой державы",
-        impact: "Военная мощь +4, Влияние -6, Риск эскалации отношений",
-        action: (g) => {
-          g.player.stats.military = Math.min(100, g.player.stats.military + 4);
-          g.player.stats.influence = Math.max(0, g.player.stats.influence - 6);
-        }
-      },
-      {
-        text: "Создать национальное суверенное командование киберобороны",
-        impact: "Казна -$10B, Стабильность +6%, Военная мощь +5%",
-        action: (g) => {
-          g.player.stats.treasury -= 10;
-          g.player.stats.stability = Math.min(100, g.player.stats.stability + 6);
-          g.player.stats.military = Math.min(100, g.player.stats.military + 5);
-        }
-      },
-      {
-        text: "Созвать экстренную международную комиссию и обнародовать логи",
-        impact: "Влияние +8, Казна -$2B",
-        action: (g) => {
-          g.player.stats.influence = Math.min(100, g.player.stats.influence + 8);
-          g.player.stats.treasury -= 2;
-        }
-      }
-    ]
-  },
-  {
-    id: "evt_civil_unrest",
-    title: "Волна социального недовольства и уличных манифестаций",
-    category: "Внутренняя политика",
-    icon: "📢",
-    text: "Повышение пенсионного возраста, инфляция и споры о миграционной политике вывели сотни тысяч людей на площади столицы. Оппозиция требует роспуска кабинета министров.",
-    options: [
-      {
-        text: "Пойти на компромисс: провести налоговую амнистию и расширить социальный пакет",
-        impact: "Казна -$12B, Стабильность +15%",
-        action: (g) => {
-          g.player.stats.treasury -= 12;
-          g.player.stats.stability = Math.min(100, g.player.stats.stability + 15);
-        }
-      },
-      {
-        text: "Проявить 'твердую руку': задействовать полицию и ограничить несогласованные митинги",
-        impact: "Стабильность +5% (наведение порядка), Влияние -10% (критика на Западе)",
-        action: (g) => {
-          g.player.stats.stability = Math.min(100, g.player.stats.stability + 5);
-          g.player.stats.influence = Math.max(0, g.player.stats.influence - 10);
-        }
-      },
-      {
-        text: "Объявить общенациональный референдум по спорным реформам",
-        impact: "Стабильность +8%, Казна -$4B, Влияние +5%",
-        action: (g) => {
-          g.player.stats.stability = Math.min(100, g.player.stats.stability + 8);
-          g.player.stats.treasury -= 4;
-          g.player.stats.influence = Math.min(100, g.player.stats.influence + 5);
-        }
-      }
-    ]
-  },
-  {
-    id: "evt_baltic_tensions",
-    title: "Инцидент в нейтральных водах Балтийского моря",
-    category: "Геополитика",
-    icon: "⚓",
-    text: "Военный корабль и разведывательный самолет опасно сблизились в нейтральных водах Балтики. Обе стороны обвиняют друг друга в провокации. В штабах объявлена повышенная готовность.",
-    options: [
-      {
-        text: "Немедленно задействовать горячую линию военных ведомств для деэскалации",
-        impact: "Влияние +10, Отношения с соседями +8",
-        action: (g) => {
-          g.player.stats.influence = Math.min(100, g.player.stats.influence + 10);
-          for (let c in g.player.relations) {
-            g.player.relations[c] = Math.min(100, g.player.relations[c] + 6);
-          }
-        }
-      },
-      {
-        text: "Начать масштабные демонстративные маневры с боевыми стрельбами",
-        impact: "Военная мощь +6, Казна -$6B, Рост напряженности",
-        action: (g) => {
-          g.player.stats.military = Math.min(100, g.player.stats.military + 6);
-          g.player.stats.treasury -= 6;
-          for (let c in g.player.relations) {
-            g.player.relations[c] = Math.max(0, g.player.relations[c] - 5);
-          }
-        }
-      }
-    ]
-  },
-  {
-    id: "evt_trade_corridor_boom",
-    title: "Прорыв в трансконтинентальной логистике",
-    category: "Торговля & Транзит",
-    icon: "🚂",
-    text: "Из-за кризисов морских перевозок сухопутные железнодорожные маршруты Евразии бьют исторические рекорды. Страны-транзитеры получают шанс закрепить статус мировых артерий.",
-    options: [
-      {
-        text: "Срочно инвестировать в расширение пропускной способности узловых станций и портов",
-        impact: "Казна -$14B, Ежеходный доход +$8B",
-        action: (g) => {
-          g.player.stats.treasury -= 14;
-          g.player.stats.incomeBonus = (g.player.stats.incomeBonus || 0) + 8;
-        }
-      },
-      {
-        text: "Повысить транзитные тарифы для иностранных грузов",
-        impact: "Казна +$12B прямо сейчас, Влияние -4",
-        action: (g) => {
-          g.player.stats.treasury += 12;
-          g.player.stats.influence = Math.max(0, g.player.stats.influence - 4);
-        }
-      }
+      { text: "Ответить зеркальным асимметричным киберударом", impact: "Военная мощь +4, Влияние -6", action: (g) => { g.player.stats.military = Math.min(100, g.player.stats.military + 4); g.player.stats.influence = Math.max(0, g.player.stats.influence - 6); } },
+      { text: "Создать национальное командование киберобороны", impact: "Казна -$10B, Стабильность +6%, Военная мощь +5%", action: (g) => { g.player.stats.treasury -= 10; g.player.stats.stability = Math.min(100, g.player.stats.stability + 6); g.player.stats.military = Math.min(100, g.player.stats.military + 5); } }
     ]
   }
 ];
 
-/**
- * StateCraft Core Game Engine — Step-by-Step Wizard & City Governance
- */
 class GameState {
   constructor() {
     this.year = 2026;
     this.seasonIndex = 0;
     this.seasons = ["ВЕСНА", "ЛЕТО", "ОСЕНЬ", "ЗИМА"];
-    
-    // Wizard State
-    this.selectedCountryId = null;
-    this.selectedIdeology = null;
-    this.selectedTargetAlly = null;
-
+    this.selectedCountryId = "france";
+    this.selectedIdeology = "social_state";
+    this.selectedTargetAlly = "neutral";
     this.player = null;
     this.otherCountries = {};
     this.activeDiploPartner = null;
@@ -871,60 +720,30 @@ class GameState {
   }
 
   init() {
-    this.renderWizardStep1();
+    this.bindWizardCards();
     this.bindWizardEvents();
     this.bindGlobalEvents();
-    this.initDotMatrixFooter();
+    this.renderCountryPreview(COUNTRIES_DATA["france"]);
   }
 
-  /* ----------------------------------------------------
-     WIZARD STEP 1: SELECT COUNTRY
-     ---------------------------------------------------- */
-  renderWizardStep1() {
-    const grid = document.getElementById('countriesGrid');
-    grid.innerHTML = '';
-
-    for (let key in COUNTRIES_DATA) {
-      const c = COUNTRIES_DATA[key];
-      const card = document.createElement('div');
-      card.className = `hw-card ${this.selectedCountryId === key ? 'selected' : ''}`;
-      card.innerHTML = `
-        <div>
-          <div class="hw-card-top">
-            <span class="hw-flag">${c.flag}</span>
-            <span class="instrument-chip">${c.id.toUpperCase()}</span>
-          </div>
-          <div class="hw-country-name">${c.name}</div>
-          <div class="hw-regime">${c.ideologyName}</div>
-          <p class="hw-summary">${c.summary ? c.summary.substring(0, 110) + '...' : ''}</p>
-        </div>
-        <div class="hw-specs">
-          <div>КАЗНА: $${c.stats.treasury}B</div>
-          <div>АРМИЯ: ${c.stats.military}/100</div>
-          <div>ОДОБРЕНИЕ: ${c.stats.stability}%</div>
-          <div>ГОРОДОВ: ${c.cities.length}</div>
-        </div>
-      `;
-
+  bindWizardCards() {
+    document.querySelectorAll('#countriesGrid .hw-card').forEach(card => {
       card.addEventListener('click', () => {
+        const key = card.getAttribute('data-country');
         this.selectedCountryId = key;
-        document.querySelectorAll('.hw-card').forEach(el => el.classList.remove('selected'));
+        document.querySelectorAll('#countriesGrid .hw-card').forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
-        this.renderCountryPreview(c);
+        this.renderCountryPreview(COUNTRIES_DATA[key]);
       });
-
-      grid.appendChild(card);
-    }
+    });
   }
 
   renderCountryPreview(country) {
     const preview = document.getElementById('countryPreview');
+    if (!preview) return;
     preview.innerHTML = `
-      <div class="corner-screw tl"></div>
-      <div class="corner-screw tr"></div>
-      <div class="corner-screw bl"></div>
-      <div class="corner-screw br"></div>
-
+      <div class="corner-screw tl"></div><div class="corner-screw tr"></div><div class="corner-screw bl"></div><div class="corner-screw br"></div>
+      
       <div class="dossier-header">
         <div>
           <h2>${country.flag} ${country.fullName}</h2>
@@ -942,8 +761,8 @@ class GameState {
       <div class="dossier-body">
         <div class="dossier-text">
           <div class="panel-title">ГЕОПОЛИТИЧЕСКИЙ АНАЛИЗ</div>
-          <p>${country.history || 'Крупная держава со своей геополитической зоной интересов.'}</p>
-          <p style="font-size:13px; color:var(--listing-gray);">Ключевые субъекты управления: ${country.cities.map(ct => ct.name).join(', ')}.</p>
+          <p>${country.traits.join('. ')}.</p>
+          <p style="font-size:13px; color:var(--listing-gray); margin-top:8px;">Ключевые субъекты управления: ${country.cities.map(ct => ct.name).join(', ')}.</p>
         </div>
 
         <div class="dossier-specs-box">
@@ -966,29 +785,19 @@ class GameState {
     });
   }
 
-  /* ----------------------------------------------------
-     WIZARD STEP 2: IDEOLOGY SELECTION
-     ---------------------------------------------------- */
   goToWizardStep2() {
-    if (!this.selectedCountryId) return;
     const country = COUNTRIES_DATA[this.selectedCountryId];
-    this.selectedIdeology = country.defaultIdeology || "social_state";
+    this.selectedIdeology = country.defaultIdeology;
 
     document.getElementById('wzChosenCountry').innerText = country.name.toUpperCase();
     document.getElementById('wizardStep1').classList.remove('active');
     document.getElementById('wizardStep2').classList.add('active');
 
-    this.renderWizardStep2Options(country);
-  }
-
-  renderWizardStep2Options(country) {
     const container = document.getElementById('wizardIdeologyOptions');
     container.innerHTML = '';
-
     this.regimeTypes.forEach(r => {
-      const isDefault = (r.id === country.defaultIdeology);
       const isSelected = (r.id === this.selectedIdeology);
-
+      const isDefault = (r.id === country.defaultIdeology);
       const card = document.createElement('div');
       card.className = `ideology-card ${isSelected ? 'selected' : ''}`;
       card.innerHTML = `
@@ -998,20 +807,15 @@ class GameState {
         </div>
         <p style="font-size:13px; color:var(--release-gray); line-height:1.5;">${r.desc}</p>
       `;
-
       card.addEventListener('click', () => {
         this.selectedIdeology = r.id;
         document.querySelectorAll('.ideology-card').forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
       });
-
       container.appendChild(card);
     });
   }
 
-  /* ----------------------------------------------------
-     WIZARD STEP 3: SELECT TARGET ALLY
-     ---------------------------------------------------- */
   goToWizardStep3() {
     const country = COUNTRIES_DATA[this.selectedCountryId];
     const regime = this.regimeTypes.find(r => r.id === this.selectedIdeology);
@@ -1022,20 +826,15 @@ class GameState {
     document.getElementById('wizardStep2').classList.remove('active');
     document.getElementById('wizardStep3').classList.add('active');
 
-    this.renderWizardStep3Options(country);
-  }
-
-  renderWizardStep3Options(country) {
     const container = document.getElementById('wizardAlliesOptions');
     container.innerHTML = '';
 
-    // Default neutral option
     const neutralCard = document.createElement('div');
-    neutralCard.className = `ally-card ${this.selectedTargetAlly === 'neutral' || !this.selectedTargetAlly ? 'selected' : ''}`;
+    neutralCard.className = `ally-card ${this.selectedTargetAlly === 'neutral' ? 'selected' : ''}`;
     neutralCard.innerHTML = `
       <div style="font-size:2rem; margin-bottom:6px;">⚖️</div>
       <h4 style="font-size:16px; font-weight:700; color:var(--white-sheet); margin-bottom:6px;">Оставить исторический нейтралитет</h4>
-      <p style="font-size:13px; color:var(--release-gray);">Сохранить стартовый внешнеполитический баланс без резких односторонних перекосов.</p>
+      <p style="font-size:13px; color:var(--release-gray);">Сохранить стартовый внешнеполитический баланс без перекосов.</p>
     `;
     neutralCard.addEventListener('click', () => {
       this.selectedTargetAlly = 'neutral';
@@ -1044,7 +843,6 @@ class GameState {
     });
     container.appendChild(neutralCard);
 
-    // Other countries
     for (let k in COUNTRIES_DATA) {
       if (k === this.selectedCountryId) continue;
       const other = COUNTRIES_DATA[k];
@@ -1054,7 +852,7 @@ class GameState {
         <div style="font-size:2rem; margin-bottom:6px;">${other.flag}</div>
         <h4 style="font-size:16px; font-weight:700; color:var(--white-sheet); margin-bottom:6px;">${other.name}</h4>
         <p style="font-size:13px; color:var(--release-gray); line-height:1.4;">
-          Приоритетный вектор сближения: +25 к стартовым отношениям, совместные экономические преференции.
+          Приоритетный вектор сближения: +25 к стартовым отношениям и преференции в торговле.
         </p>
       `;
       card.addEventListener('click', () => {
@@ -1066,20 +864,14 @@ class GameState {
     }
   }
 
-  /* ----------------------------------------------------
-     START GAMEPLAY
-     ---------------------------------------------------- */
   startGamePlay() {
     this.player = JSON.parse(JSON.stringify(COUNTRIES_DATA[this.selectedCountryId]));
-    
-    // Apply ideology
     const regimeObj = this.regimeTypes.find(r => r.id === this.selectedIdeology);
     if (regimeObj) {
       this.player.regime = regimeObj.name;
       this.player.regimeStyle = regimeObj.id;
     }
 
-    // Apply allies
     this.otherCountries = {};
     for (let k in COUNTRIES_DATA) {
       if (k !== this.selectedCountryId) {
@@ -1093,7 +885,6 @@ class GameState {
       }
     }
 
-    // Hide wizard, show game
     document.getElementById('wizardStep3').classList.remove('active');
     document.getElementById('screenGame').classList.add('active');
     document.getElementById('headerMeta').style.display = 'flex';
@@ -1132,7 +923,6 @@ class GameState {
   }
 
   bindGlobalEvents() {
-    // Navigation Tabs
     document.querySelectorAll('.opal-tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.opal-tab-btn').forEach(b => b.classList.remove('active'));
@@ -1143,22 +933,21 @@ class GameState {
       });
     });
 
-    // Next Turn Button
     document.getElementById('btnNextTurn').addEventListener('click', () => {
       this.advanceTurn();
     });
 
-    // Economic sliders
     const taxSlider = document.getElementById('taxSlider');
-    taxSlider.addEventListener('input', (e) => {
-      const val = e.target.value;
-      document.getElementById('taxRateVal').innerText = `${val}%`;
-      if (this.player) {
-        this.player.stats.taxRate = parseInt(val);
-      }
-    });
+    if (taxSlider) {
+      taxSlider.addEventListener('input', (e) => {
+        const val = e.target.value;
+        document.getElementById('taxRateVal').innerText = `${val}%`;
+        if (this.player) {
+          this.player.stats.taxRate = parseInt(val);
+        }
+      });
+    }
 
-    // Military buttons
     document.getElementById('btnMobilize').addEventListener('click', () => {
       if (this.player.stats.treasury >= 5) {
         this.player.stats.treasury -= 5;
@@ -1189,7 +978,7 @@ class GameState {
       if (this.player.stats.treasury >= 8) {
         this.player.stats.treasury -= 8;
         this.player.stats.military = Math.min(100, this.player.stats.military + 9);
-        this.toast("КОНТРАКТЫ: Высокоточное вооружение поставлено на боевое дежурство.");
+        this.toast("КОНТРАКТЫ: Высокоточное вооружение на боевом дежурстве.");
         this.updateHeaderAndResources();
         this.renderMilitaryTab();
       } else {
@@ -1218,7 +1007,6 @@ class GameState {
       this.year++;
     }
 
-    // Regional economic yield
     let cityBonus = 0;
     if (this.player.cities) {
       this.player.cities.forEach(c => {
@@ -1238,7 +1026,6 @@ class GameState {
     this.log(`КВАРТАЛ: ${this.seasons[this.seasonIndex]} ${this.year}. Налоги и города: +$${taxIncome}B, Военные расходы: -$${milExpenses}B (Итог: ${netIncome >= 0 ? '+' : ''}$${netIncome}B).`);
     this.updateHeaderAndResources();
 
-    // Trigger Dilemma Event
     const event = HISTORICAL_EVENTS[Math.floor(Math.random() * HISTORICAL_EVENTS.length)];
     this.showEventModal(event);
 
@@ -1284,9 +1071,6 @@ class GameState {
     modal.style.display = 'flex';
   }
 
-  /* ----------------------------------------------------
-     TAB: CITIES & REGIONS
-     ---------------------------------------------------- */
   renderCitiesTab() {
     const grid = document.getElementById('citiesListGrid');
     if (!grid) return;
@@ -1325,8 +1109,8 @@ class GameState {
           this.player.stats.treasury -= 4;
           city.gdp += 4;
           city.loyalty = Math.min(100, city.loyalty + 6);
-          this.toast(`ИНФРАСТРУКТУРА: Инвестиции в ${city.name} повысили ВВП и лояльность!`);
-          this.log(`Реализована программа городского развития для города ${city.name}.`);
+          this.toast(`ИНФРАСТРУКТУРА: Инвестиции в ${city.name} подняли ВВП и лояльность!`);
+          this.log(`Реализован проект развития города ${city.name}.`);
           this.updateHeaderAndResources();
           this.renderCitiesTab();
         } else {
@@ -1349,14 +1133,11 @@ class GameState {
     });
   }
 
-  /* ----------------------------------------------------
-     TAB: OVERVIEW & COUNCIL
-     ---------------------------------------------------- */
   renderOverviewTab() {
     const briefing = document.getElementById('leaderBriefing');
     briefing.innerHTML = `
       <p style="margin-bottom:8px;"><strong>ВАШЕ ПРЕВОСХОДИТЕЛЬСТВО,</strong> системы управления функционируют штатно.</p>
-      <p>Одобрение граждан: ${this.player.stats.stability}%. Коррупционный фон: ${this.player.stats.corruption || 12}%. Базовая ставка налога: ${this.player.stats.taxRate}%.</p>
+      <p>Одобрение граждан: ${this.player.stats.stability}%. Коррупция: ${this.player.stats.corruption || 12}%. Базовая ставка налога: ${this.player.stats.taxRate}%.</p>
     `;
 
     const focuses = document.getElementById('focusList');
@@ -1392,9 +1173,6 @@ class GameState {
     });
   }
 
-  /* ----------------------------------------------------
-     TAB: DIPLOMACY & DIALOGUES
-     ---------------------------------------------------- */
   renderDiplomacyTab() {
     const list = document.getElementById('diploCards');
     list.innerHTML = '';
@@ -1470,7 +1248,7 @@ class GameState {
         this.player.relations[targetId] = Math.min(100, this.player.relations[targetId] + 10);
         chat.innerHTML += `
           <div class="terminal-bubble you">ПРЕДЛОЖЕНИЕ: Снижение взаимных пошлин и открытие торговых коридоров.</div>
-          <div class="terminal-bubble them">АКЦЕПТОВАНО: Соглашение подписано. Товарооборот начинает приносить взаимный доход.</div>
+          <div class="terminal-bubble them">АКЦЕПТОВАНО: Соглашение подписано. Товарооборот начинает приносить доход.</div>
         `;
         this.toast(`ТОРГОВЫЙ ПАКТ С ${target.name.toUpperCase()} ЗАКЛЮЧЕН`);
         this.updateHeaderAndResources();
@@ -1486,7 +1264,7 @@ class GameState {
         this.player.stats.influence = Math.min(100, this.player.stats.influence + 8);
         chat.innerHTML += `
           <div class="terminal-bubble you">ПРЕДЛОЖЕНИЕ: Договор о взаимных гарантиях безопасности.</div>
-          <div class="terminal-bubble them">СОГЛАСОВАНО: Наши генеральные штабы начинают обмен данными. Союз нерушим.</div>
+          <div class="terminal-bubble them">СОГЛАСОВАНО: Наши штабы начинают обмен данными. Союз нерушим.</div>
         `;
         this.toast(`ВОЕННЫЙ СОЮЗ С ${target.name.toUpperCase()} ЗАКЛЮЧЕН`);
       } else {
@@ -1504,8 +1282,8 @@ class GameState {
         this.player.stats.treasury -= 10;
         this.player.relations[targetId] = Math.min(100, this.player.relations[targetId] + 20);
         chat.innerHTML += `
-          <div class="terminal-bubble you">ТРАНШ: Предоставление безвозмездного стабилизационного кредита.</div>
-          <div class="terminal-bubble them">БЛАГОДАРНОСТЬ: Транш получен. Отношение элиты и общества резко улучшилось.</div>
+          <div class="terminal-bubble you">ТРАНШ: Предоставление стабилизационного гранта.</div>
+          <div class="terminal-bubble them">БЛАГОДАРНОСТЬ: Транш получен. Отношение резко улучшилось.</div>
         `;
         this.toast(`ОТНОШЕНИЯ С ${target.name.toUpperCase()} ВЫРОСЛИ НА +20`);
         this.updateHeaderAndResources();
@@ -1519,8 +1297,8 @@ class GameState {
       this.player.relations[targetId] = Math.max(0, this.player.relations[targetId] - 35);
       this.player.stats.stability = Math.max(0, this.player.stats.stability - 5);
       chat.innerHTML += `
-        <div class="terminal-bubble you">УЛЬТИМАТУМ: Немедленно прекратить враждебные действия и уступить интересы!</div>
-        <div class="terminal-bubble them" style="border-color:var(--accent-red); color:var(--accent-red);">ДЕПЕША ИЗ СТОЛИЦЫ: Это объявление вражды. Дипломатические контакты заморожены!</div>
+        <div class="terminal-bubble you">УЛЬТИМАТУМ: Немедленно прекратить враждебные действия!</div>
+        <div class="terminal-bubble them" style="border-color:var(--accent-red); color:var(--accent-red);">ДЕПЕША: Это объявление вражды. Дипломатические контакты заморожены!</div>
       `;
       this.toast(`РАЗРЫВ: ОТНОШЕНИЯ С ${target.name.toUpperCase()} КРИТИЧЕСКИ УПАЛИ`);
       this.updateHeaderAndResources();
@@ -1528,9 +1306,6 @@ class GameState {
     });
   }
 
-  /* ----------------------------------------------------
-     TAB: ECONOMY & PROJECTS
-     ---------------------------------------------------- */
   renderEconomyTab() {
     const pList = document.getElementById('ecoProjectsList');
     pList.innerHTML = '';
@@ -1557,7 +1332,7 @@ class GameState {
           p.active = true;
           this.player.stats.incomeBonus = (this.player.stats.incomeBonus || 0) + 10;
           this.toast(`МЕГАПРОЕКТ [${p.name.toUpperCase()}] УСПЕШНО ЗАПУЩЕН`);
-          this.log(`Внедрен масштабный национальный проект: ${p.name}.`);
+          this.log(`Внедрен национальный проект: ${p.name}.`);
           this.updateHeaderAndResources();
           this.renderEconomyTab();
         } else {
@@ -1586,9 +1361,6 @@ class GameState {
     }
   }
 
-  /* ----------------------------------------------------
-     TAB: MILITARY & ARMED FORCES
-     ---------------------------------------------------- */
   renderMilitaryTab() {
     const stats = document.getElementById('milStats');
     stats.innerHTML = `
@@ -1629,9 +1401,6 @@ class GameState {
     `;
   }
 
-  /* ----------------------------------------------------
-     TAB: POLICIES & DECREES
-     ---------------------------------------------------- */
   renderPoliciesTab() {
     const rSel = document.getElementById('regimeSelector');
     rSel.innerHTML = '';
@@ -1730,80 +1499,17 @@ class GameState {
     localStorage.setItem('statecraft_save', JSON.stringify(stateData));
     this.toast("СОХРАНЕНО: Данные записаны в локальное хранилище");
   }
-
-  initDotMatrixFooter() {
-    const canvas = document.getElementById('dotMatrixCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    
-    let width = canvas.width = canvas.offsetWidth;
-    let height = canvas.height = canvas.offsetHeight;
-    let mouse = { x: -1000, y: -1000 };
-
-    window.addEventListener('resize', () => {
-      width = canvas.width = canvas.offsetWidth;
-      height = canvas.height = canvas.offsetHeight;
-    });
-
-    canvas.addEventListener('mousemove', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    });
-
-    canvas.addEventListener('mouseleave', () => {
-      mouse.x = -1000;
-      mouse.y = -1000;
-    });
-
-    const spacing = 14;
-    function render() {
-      ctx.clearRect(0, 0, width, height);
-
-      for (let x = 0; x < width; x += spacing) {
-        for (let y = 0; y < height; y += spacing) {
-          const dx = mouse.x - x;
-          const dy = mouse.y - y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          let radius = 1.2;
-          let alpha = 0.12;
-
-          if (dist < 120) {
-            const factor = 1 - dist / 120;
-            radius = 1.2 + factor * 2.5;
-            alpha = 0.12 + factor * 0.88;
-          }
-
-          ctx.beginPath();
-          ctx.arc(x, y, radius, 0, Math.PI * 2);
-          if (dist < 120) {
-            ctx.fillStyle = `rgba(255, 219, 1, ${alpha})`;
-          } else {
-            ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-          }
-          ctx.fill();
-        }
-      }
-
-      ctx.fillStyle = "rgba(255,255,255,0.04)";
-      ctx.font = "700 48px Inter, sans-serif";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText("STATECRAFT", width / 2, height / 2);
-
-      requestAnimationFrame(render);
-    }
-    render();
-  }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  const game = new GameState();
-  game.init();
-  window.currentGame = game;
-});
+// Immediate execution
+const game = new GameState();
+window.currentGame = game;
 
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => game.init());
+} else {
+  game.init();
+}
 </script>
 </body>
 </html>
