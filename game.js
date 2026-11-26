@@ -58,7 +58,7 @@ class GameState {
           </div>
           <div class="hw-country-name">${c.name}</div>
           <div class="hw-regime">${c.ideologyName}</div>
-          <p class="hw-summary">${c.summary ? c.summary.substring(0, 110) + '...' : ''}</p>
+          <p class="hw-summary">${c.summary ? c.summary.substring(0, 110) + '...' : c.traits.slice(0, 2).join('. ')}</p>
         </div>
         <div class="hw-specs">
           <div>КАЗНА: $${c.stats.treasury}B</div>
@@ -469,7 +469,7 @@ class GameState {
           <div class="city-role">${city.role}</div>
 
           <div class="city-metrics-row">
-            <div>ЛОЯЛЬНОСТЬ: <strong style="color:${city.loyalty >= 70 ? 'var(--accent-green)' : 'var(--signal-yellow)};">${city.loyalty}%</strong></div>
+            <div>ЛОЯЛЬНОСТЬ: <strong style="color:${city.loyalty >= 70 ? 'var(--accent-green)' : 'var(--signal-yellow)'};">${city.loyalty}%</strong></div>
             <div>ВКЛАД В ВВП: <strong>$${city.gdp}B</strong></div>
           </div>
         </div>
