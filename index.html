@@ -36,24 +36,24 @@
 
     <section class="instrument-bar" id="instrumentBar" style="display:none;">
       <div class="readout-cell">
-        <div class="readout-label">Государственная казна</div>
-        <div class="readout-value" id="resTreasury">$180B</div>
+        <div class="readout-label">Казна / Госдолг</div>
+        <div class="readout-value" id="resTreasury">$140B / $110B</div>
+      </div>
+      <div class="readout-cell">
+        <div class="readout-label">Инфляция / Безраб.</div>
+        <div class="readout-value" id="resMacro">3.1% / 7.4%</div>
       </div>
       <div class="readout-cell">
         <div class="readout-label">Военная мощь</div>
-        <div class="readout-value" id="resMilitary">78/100</div>
+        <div class="readout-value" id="resMilitary">80/100</div>
       </div>
       <div class="readout-cell">
-        <div class="readout-label">Стабильность</div>
-        <div class="readout-value" id="resStability">58%</div>
+        <div class="readout-label">Народ / Элиты</div>
+        <div class="readout-value" id="resStability">54% / 64%</div>
       </div>
       <div class="readout-cell">
-        <div class="readout-label">Авторитет в мире</div>
-        <div class="readout-value" id="resInfluence">88/100</div>
-      </div>
-      <div class="readout-cell">
-        <div class="readout-label">Энергонезависимость</div>
-        <div class="readout-value" id="resEnergy">92%</div>
+        <div class="readout-label">Влияние / Энергия</div>
+        <div class="readout-value" id="resInfluence">88 / 92%</div>
       </div>
     </section>
 
@@ -64,14 +64,14 @@
         <div class="wizard-progress-bar">
           <div class="step-badge active">1. Выбор державы</div>
           <span class="step-divider">›</span>
-          <div class="step-badge">2. Государственный курс</div>
+          <div class="step-badge">2. Идеология и экономика</div>
           <span class="step-divider">›</span>
           <div class="step-badge">3. Внешние приоритеты</div>
         </div>
 
         <div class="hero-banner">
           <h1 class="hero-title">Выберите державу</h1>
-          <p class="hero-subtitle">Каждая страна обладает реальными ресурсами, уязвимостями, городами и историческими противоречиями с соседями.</p>
+          <p class="hero-subtitle">У каждой страны уникальные реалии: инфляция, госдолг, сырьевая база, лояльность элит и отношения с мировыми блоками.</p>
         </div>
 
         <div class="hardware-grid" id="countriesGrid"></div>
@@ -83,22 +83,35 @@
         </div>
       </section>
 
-      <!-- ШАГ 2: ИДЕОЛОГИЯ -->
+      <!-- ШАГ 2: ПОЛИТИЧЕСКАЯ, ФИНАНСОВАЯ И ВНЕШНЯЯ ИДЕОЛОГИЯ -->
       <section class="wizard-step" id="wizardStep2">
         <div class="wizard-progress-bar">
           <div class="step-badge completed">1. Держава: <span id="wzChosenCountry">—</span></div>
           <span class="step-divider">›</span>
-          <div class="step-badge active">2. Государственный курс</div>
+          <div class="step-badge active">2. Идеология и экономика</div>
           <span class="step-divider">›</span>
           <div class="step-badge">3. Внешние приоритеты</div>
         </div>
 
         <div class="hero-banner">
-          <h1 class="hero-title">Выберите форму правления</h1>
-          <p class="hero-subtitle">Вы можете сохранить исторический строй или резко изменить политический курс страны — с реальными последствиями.</p>
+          <h1 class="hero-title">Конструктор государственного курса</h1>
+          <p class="hero-subtitle">Настройте три ключевые оси власти: политический режим, финансово-экономическую модель и внешнюю доктрину.</p>
         </div>
 
-        <div class="ideology-grid" id="wizardIdeologyOptions"></div>
+        <div class="panel" style="margin-bottom:18px;">
+          <div class="panel-title">1. Политический строй</div>
+          <div class="ideology-grid" id="wizardIdeologyOptions" style="margin-bottom:0;"></div>
+        </div>
+
+        <div class="panel" style="margin-bottom:18px;">
+          <div class="panel-title">2. Финансово-экономическая модель</div>
+          <div class="ideology-grid" id="wizardEconomyOptions" style="margin-bottom:0;"></div>
+        </div>
+
+        <div class="panel" style="margin-bottom:24px;">
+          <div class="panel-title">3. Внешнеполитическая доктрина</div>
+          <div class="ideology-grid" id="wizardDoctrineOptions" style="margin-bottom:0;"></div>
+        </div>
 
         <div class="wizard-actions">
           <button class="btn-secondary" id="btnWzBackTo1">◂ Назад к выбору страны</button>
@@ -117,14 +130,14 @@
         </div>
 
         <div class="hero-banner">
-          <h1 class="hero-title">Внешнеполитический вектор</h1>
-          <p class="hero-subtitle">Определите, с кем искать сближения на старте или сохранить свободу рук.</p>
+          <h1 class="hero-title">Стартовый дипломатический приоритет</h1>
+          <p class="hero-subtitle">Выберите державу (включая мировых гигантов), с которой начнёте сближение в первый квартал.</p>
         </div>
 
         <div class="allies-grid" id="wizardAlliesOptions"></div>
 
         <div class="wizard-actions">
-          <button class="btn-secondary" id="btnWzBackTo2">◂ Назад к форме правления</button>
+          <button class="btn-secondary" id="btnWzBackTo2">◂ Назад к идеологии</button>
           <button class="btn-danger" id="btnWzStartGame">Принять присягу и начать правление ➔</button>
         </div>
       </section>
@@ -132,24 +145,24 @@
       <!-- ОСНОВНОЙ ЭКРАН ИГРЫ -->
       <section class="screen-game" id="screenGame">
         <nav class="nav-tabs" id="mainNav">
-          <button class="tab-btn active" data-tab="tabOverview">Сводка и Сюжет</button>
+          <button class="tab-btn active" data-tab="tabOverview">Сводка и Мир</button>
           <button class="tab-btn" data-tab="tabCities">Города и Регионы</button>
-          <button class="tab-btn" data-tab="tabDiplomacy">Дипломатия и Война</button>
-          <button class="tab-btn" data-tab="tabEconomy">Экономика и Указы</button>
+          <button class="tab-btn" data-tab="tabDiplomacy">Мир, Дипломатия и Война</button>
+          <button class="tab-btn" data-tab="tabEconomy">Финансы, Бюджет и Идеология</button>
           <button class="tab-btn" data-tab="tabMilitary">Армия и Фронт</button>
           <button class="tab-btn" data-tab="tabLog">Летопись</button>
         </nav>
 
-        <!-- Вкладка 1: Сводка и Сюжет -->
+        <!-- Вкладка 1: Сводка и Мир -->
         <div class="tab-pane active" id="tabOverview">
           <div class="grid-asymmetric">
             <div style="display:flex; flex-direction:column; gap:18px;">
               <div class="panel">
-                <div class="panel-title">Доклад канцелярии</div>
+                <div class="panel-title">Доклад канцелярии и макроэкономика</div>
                 <div id="leaderBriefing"></div>
               </div>
               <div class="panel">
-                <div class="panel-title">Текущие сюжетные линии и кризисы</div>
+                <div class="panel-title">Текущие угрозы и сюжетные процессы</div>
                 <div id="storyStatusList" style="display:flex; flex-direction:column; gap:10px;"></div>
               </div>
             </div>
@@ -166,63 +179,91 @@
           <div class="panel" style="margin-bottom:18px;">
             <div class="panel-title">Управление регионами и городами</div>
             <p style="font-size:14px; color:var(--ink-secondary);">
-              Вы можете развивать инфраструктуру и лояльность регионов — либо выжимать из них экстренные налоги в казну ценой недовольства и риска восстания.
+              Развивайте промышленность и лояльность регионов или изымайте экстренные сборы в казну, рискуя бунтами.
             </p>
           </div>
           <div class="cities-grid" id="citiesListGrid"></div>
         </div>
 
-        <!-- Вкладка 3: Дипломатия и Война -->
+        <!-- Вкладка 3: Мир, Дипломатия и Война -->
         <div class="tab-pane" id="tabDiplomacy">
           <div class="diplo-layout">
             <div>
               <div class="panel" style="padding:14px;">
-                <div class="panel-title" style="font-size:18px;">Иностранные державы</div>
-                <div id="diploCards"></div>
+                <div class="panel-title" style="font-size:18px;">Державы мира (12 стран)</div>
+                <div id="diploCards" style="max-height:600px; overflow-y:auto;"></div>
               </div>
             </div>
 
             <div class="panel" id="diploDialoguePane">
               <div style="text-align:center; padding:50px 20px; color:var(--ink-muted);">
-                Выберите державу слева для переговоров, помощи, ультиматумов или объявления войны.
+                Выберите любую державу слева (соседа или мировую сверхдержаву) для переговоров, кредитов, санкций, ультиматумов или войны.
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Вкладка 4: Экономика и Указы -->
+        <!-- Вкладка 4: Финансы, Бюджет и Идеология -->
         <div class="tab-pane" id="tabEconomy">
           <div class="grid-2" style="margin-bottom:20px;">
             <div class="panel">
-              <div class="panel-title">Налоги и бюджетная политика</div>
+              <div class="panel-title">Налоги, бюджет и госдолг</div>
               <div style="margin-bottom:14px;">
-                <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:6px;">
+                <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:4px;">
                   <span>Ставка налогообложения:</span>
                   <strong id="taxRateVal">30%</strong>
                 </div>
                 <input type="range" id="taxSlider" min="10" max="60" value="30" style="width:100%; accent-color: var(--accent-crimson);">
-                <p style="font-size:12px; color:var(--ink-muted); margin-top:4px;">Высокие налоги пополняют казну, но снижают стабильность и деловую активность.</p>
               </div>
+
+              <div style="margin-bottom:14px;">
+                <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:4px;">
+                  <span>Расходы на Оборону и Спецслужбы:</span>
+                  <strong id="budDefVal">30%</strong>
+                </div>
+                <input type="range" id="budDefSlider" min="10" max="60" value="30" style="width:100%; accent-color: var(--accent-crimson);">
+              </div>
+
+              <div style="margin-bottom:14px;">
+                <div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:4px;">
+                  <span>Расходы на Социалку и Здравоохранение:</span>
+                  <strong id="budSocVal">35%</strong>
+                </div>
+                <input type="range" id="budSocSlider" min="10" max="60" value="35" style="width:100%; accent-color: var(--accent-olive);">
+              </div>
+
               <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                <button class="btn-secondary btn-sm" id="btnPrintMoney">Эмиссия валюты (+$25B, -8% стаб.)</button>
-                <button class="btn-olive btn-sm" id="btnSocialRelief">Соцпакет (-$12B, +10% стаб.)</button>
+                <button class="btn-secondary btn-sm" id="btnPrintMoney">Эмиссия (+$25B, +3.5% инфл.)</button>
+                <button class="btn-primary-gold btn-sm" id="btnTakeLoan">Взять внешний заём (+$30B, +$35B долг)</button>
+                <button class="btn-olive btn-sm" id="btnPayDebt">Погасить долг (-$25B)</button>
               </div>
             </div>
 
             <div class="panel">
+              <div class="panel-title">Финансово-экономическая модель</div>
+              <div id="economyModelSelector" style="display:flex; flex-direction:column; gap:10px;"></div>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-bottom:20px;">
+            <div class="panel">
               <div class="panel-title">Национальные проекты</div>
               <div id="ecoProjectsList" style="display:flex; flex-direction:column; gap:10px;"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-title">Государственные указы</div>
+              <div id="decreesList" style="display:flex; flex-direction:column; gap:10px;"></div>
             </div>
           </div>
 
           <div class="grid-2">
             <div class="panel">
-              <div class="panel-title">Государственные указы</div>
-              <div id="decreesList" style="display:flex; flex-direction:column; gap:10px;"></div>
+              <div class="panel-title">Политический строй</div>
+              <div id="regimeSelector" style="display:flex; flex-direction:column; gap:10px;"></div>
             </div>
             <div class="panel">
-              <div class="panel-title">Смена политического курса</div>
-              <div id="regimeSelector" style="display:flex; flex-direction:column; gap:10px;"></div>
+              <div class="panel-title">Внешнеполитическая доктрина</div>
+              <div id="doctrineSelector" style="display:flex; flex-direction:column; gap:10px;"></div>
             </div>
           </div>
         </div>
@@ -250,14 +291,13 @@
         <!-- Вкладка 6: Летопись -->
         <div class="tab-pane" id="tabLog">
           <div class="panel">
-            <div class="panel-title">Государственная летопись</div>
-            <div id="chronicleFeed" style="display:flex; flex-direction:column; gap:10px; max-height:520px; overflow-y:auto;"></div>
+            <div class="panel-title">Государственная летопись и события мира</div>
+            <div id="chronicleFeed" style="display:flex; flex-direction:column; gap:10px; max-height:540px; overflow-y:auto;"></div>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- Модальное окно событий / сюжета -->
     <div class="modal-overlay" id="eventModal" style="display:none;">
       <div class="modal-card">
         <div class="modal-tag" id="modalCategoryTag">СРОЧНОЕ ДОНЕСЕНИЕ</div>
