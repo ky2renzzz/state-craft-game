@@ -1,6 +1,7 @@
 const COUNTRIES_DATA = {
   france: {
     id: "france",
+    nuclear: true,
     name: "Франция",
     fullName: "Французская Республика",
     flag: "🇫🇷",
@@ -62,6 +63,7 @@ const COUNTRIES_DATA = {
 
   russia: {
     id: "russia",
+    nuclear: true,
     name: "Россия",
     fullName: "Российская Федерация",
     flag: "🇷🇺",

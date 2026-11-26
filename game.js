@@ -760,7 +760,7 @@ class GameState {
       </div>
       <div class="readout-cell" style="border:1px solid var(--etch-border);">
         <div class="readout-label">ЯДЕРНЫЙ СТАТУС</div>
-        <div class="readout-value">${["france", "russia"].includes(this.player.id) ? "АКТИВЕН" : "НЕТ"}</div>
+        <div class="readout-value">${this.player.nuclear ? "АКТИВЕН" : "НЕТ"}</div>
       </div>
       <div class="readout-cell" style="border:1px solid var(--etch-border);">
         <div class="readout-label">РЕГУЛЯРНЫЕ ВОЙСКА</div>
